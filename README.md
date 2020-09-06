@@ -7,7 +7,7 @@
   #### Linux:
   <code>pip3 install instagramy</code>
   ## Usage:
-  <code>from instagram import Instagram </code>
+  <code>from instagram import Instagram </code> <br/>
   <code>name = Instagram("virat.kohli")</code> <br />
   <code>popularity = name.popularity()</code><br />
   <code>posts = name.get_posts_details()</code> <br />
