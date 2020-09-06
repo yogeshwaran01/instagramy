@@ -13,3 +13,5 @@
   <code>posts = name.get_posts_details()</code> <br />
   <code>profile = name.get_profile_pic()</code> <br />
   <code>bio = name.get_biography()</code>
+  
+  ![alt text](https://github.com/yogeshwaran01/instagramy/blob/master/instagramy.png?raw=true)
