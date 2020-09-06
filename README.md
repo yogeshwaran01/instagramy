@@ -13,5 +13,7 @@
   <code>posts = name.get_posts_details()</code> <br />
   <code>profile = name.get_profile_pic()</code> <br />
   <code>bio = name.get_biography()</code>
+  ## Samples:
+  ![sample image](https://github.com/yogeshwaran01/instagramy/blob/master/samples/instagramy.png?raw=true)
+  ![sample image](https://github.com/yogeshwaran01/instagramy/blob/master/samples/instagramy(1).png?raw=true)
   
-  ![alt text](https://github.com/yogeshwaran01/instagramy/blob/master/instagramy.png?raw=true)
