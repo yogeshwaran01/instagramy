@@ -1,5 +1,6 @@
 
  ## instagramy
+ [![PyPI](https://img.shields.io/pypi/v/instagramy.svg)](https://pypi.org/project/instagramy/)</br>
   Get Instagram users informations
   ## Download:
   #### Windows:
