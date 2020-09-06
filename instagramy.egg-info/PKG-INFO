@@ -1,0 +1,30 @@
+Metadata-Version: 2.1
+Name: instagramy
+Version: 1.0
+Summary: Get Instagram user information 
+Home-page: https://github.com/yogeshwaran01/instagramy/
+Author: Yogeshwaran R
+Author-email: yogeshin247@gmail.com
+License: UNKNOWN
+Download-URL: https://github.com/yogeshwaran01/instagramy/archive/v_01.tar.gz
+Description: 
+         ## instagramy
+          Get Instagram users informations
+          ## Download:
+          #### Windows:
+          <code>pip install instagramy</code>
+          #### Linux:
+          <code>pip3 install instagramy</code>
+          ## Usage:
+          <code>from instagram import Instagram </code> <br/>
+          <code>name = Instagram("virat.kohli")</code> <br />
+          <code>popularity = name.popularity()</code><br />
+          <code>posts = name.get_posts_details()</code> <br />
+          <code>profile = name.get_profile_pic()</code> <br />
+          <code>bio = name.get_biography()</code>
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
