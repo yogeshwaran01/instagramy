@@ -20,4 +20,4 @@
   #### to get posts details as lists of dictionary:
   ![sample image](https://github.com/yogeshwaran01/instagramy/blob/master/samples/ins.png?raw=true)
    ## Source code to download dp:
-   ![Link to download dp](https://gist.github.com/yogeshwaran01/7e506f85990ff6de48466833ef86c4db.js?raw=flase)
+   [Link to download dp](https://gist.github.com/yogeshwaran01/7e506f85990ff6de48466833ef86c4db)
