@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="instagramy",
-    version="1.0",
+    version="1.1",
     author="Yogeshwaran R",
     author_email="yogeshin247@gmail.com",
     description="Get Instagram user information ",
