@@ -38,7 +38,7 @@ class Instagram(object):
         soup = BeautifulSoup(html.text, 'html.parser')
         return soup
 
-    def data(self):
+    def get_json(self):
         try:
             info = html_1(self.soup())
             return info
@@ -47,43 +47,43 @@ class Instagram(object):
             return info
 
     def get_followers(self):
-        info = self.data()
+        info = self.get_json()
         followers = info['edge_followed_by']['count']
         return followers
 
     def get_followings(self):
-        info = self.data()
+        info = self.get_json()
         following = info['edge_follow']['count']
         return following
 
     def get_posts(self):
-        info = self.data()
+        info = self.get_json()
         posts = info['edge_owner_to_timeline_media']['count']
         return posts
 
     def get_biography(self):
-        info = self.data()
+        info = self.get_json()
         bio = info['biography']
         return bio
 
     def get_fullname(self):
-        info = self.data()
+        info = self.get_json()
         fullname = info['full_name']
         return fullname
 
     def get_username(self):
-        info = self.data()
+        info = self.get_json()
         username = info['username']
         return username
 
     def get_profile_pic(self):
-        info = self.data()
+        info = self.get_json()
         pic = info['profile_pic_url_hd']
         return pic
 
     def get_posts_details(self):
         final_lists = []
-        info = self.data()
+        info = self.get_json()
         posts_details = info["edge_owner_to_timeline_media"]["edges"]
         for i in posts_details:
             data = {}
@@ -127,7 +127,56 @@ class Instagram(object):
 
     def popularity(self):
         final = {"followers": self.get_followers(),
-                 "following": self.get_followings(),
+                 "followings": self.get_followings(),
                  "posts": self.get_posts()}
         return final
 
+    def get_url(self):
+        info = self.get_json()
+        external_url = info["external_url"]
+        return external_url
+
+    def get_other_info(self):
+        info = self.get_json()
+        return {"is_private": info['is_private'],
+                "is_verified": info['is_verified'],
+                "is_business_account": info['is_business_account'],
+                "is_joined_recently": info['is_joined_recently'],
+                "has_ar_effects": info["has_ar_effects"],
+                "has_clips": info["has_clips"],
+                "has_guides":info["has_guides"],
+                "has_channel": info["has_channel"]}
+
+    def get_email(self):
+        info = self.get_json()
+        return info["business_email"]
+
+    def is_verified(self):
+        info = self.get_json()
+        return info['is_verified']
+    
+    def is_private(self):
+        info = self.get_json()
+        return info['is_private']
+
+class Instalysis(object):
+
+    def __init__(self,list_of_username):
+        self.users = list_of_username
+    
+    def analyis(self):
+        usernames = []
+        followers = []
+        following = []
+        posts = []
+        import pandas as pd
+        for user in self.users:
+            usernames.append(user)
+            user_obj = Instagram(user)
+            pop = user_obj.popularity()
+            followers.append(pop["followers"])
+            following.append(pop["followings"])
+            posts.append(pop["posts"])
+        data = {"Usernames":usernames,"Followers":followers,"Followings":following,"Posts":posts}
+        df = pd.DataFrame(data)
+        return df

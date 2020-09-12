@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="instagramy",
-    version="1.1",
+    version="2.0",
     author="Yogeshwaran R",
     author_email="yogeshin247@gmail.com",
-    description="Get Instagram user information ",
+    description="Get Instagram user information and analysis with pandas",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/yogeshwaran01/instagramy/",
@@ -19,5 +19,5 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent"
     ],
-    install_requires=['beautifulsoup4', 'requests']
+    install_requires=['beautifulsoup4', 'requests','pandas']
 )

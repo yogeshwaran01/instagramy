@@ -1,7 +1,7 @@
 
  ## instagramy
  [![PyPI](https://img.shields.io/pypi/v/instagramy.svg)](https://pypi.org/project/instagramy/)</br>
-  Get Instagram users informations
+  Get Instagram users informations and Analysis with pandas
   ## Download:
   #### Windows:
   <code>pip install instagramy</code>
@@ -19,5 +19,5 @@
   ![sample image](https://github.com/yogeshwaran01/instagramy/blob/master/samples/instagramy(1).png?raw=true)
   #### to get posts details as lists of dictionary:
   ![sample image](https://github.com/yogeshwaran01/instagramy/blob/master/samples/ins.png?raw=true)
-   ## Source code to download dp:
-   [Link to download dp(Source code)](https://gist.github.com/yogeshwaran01/7e506f85990ff6de48466833ef86c4db)
+   ## download dp of user:
+   [Download dp of the user](https://gist.github.com/yogeshwaran01/7e506f85990ff6de48466833ef86c4db)
