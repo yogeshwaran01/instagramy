@@ -15,6 +15,8 @@
   <code>profile = name.get_profile_pic()</code> <br />
   <code>bio = name.get_biography()</code>
   ## Samples:
+  ![sample image](https://github.com/yogeshwaran01/instagramy/blob/master/samples/teams.png?raw=true)
+   ![sample image](https://github.com/yogeshwaran01/instagramy/blob/master/samples/snap.png?raw=true)
   ![sample image](https://github.com/yogeshwaran01/instagramy/blob/master/samples/instagramy.png?raw=true)
   ![sample image](https://github.com/yogeshwaran01/instagramy/blob/master/samples/instagramy(1).png?raw=true)
   #### to get posts details as lists of dictionary:
