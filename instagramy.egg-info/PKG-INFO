@@ -1,35 +1,43 @@
 Metadata-Version: 2.1
 Name: instagramy
-Version: 2.0
-Summary: Get Instagram user information and analysis with pandas
+Version: 3.0
+Summary: Get Instagram user information and posts details
 Home-page: https://github.com/yogeshwaran01/instagramy/
 Author: Yogeshwaran R
 Author-email: yogeshin247@gmail.com
 License: UNKNOWN
 Download-URL: https://github.com/yogeshwaran01/instagramy/archive/v_01.tar.gz
-Description: 
-         ## instagramy
-         [![PyPI](https://img.shields.io/pypi/v/instagramy.svg)](https://pypi.org/project/instagramy/)</br>
-          Get Instagram users informations and Analysis with pandas
-          ## Download:
-          #### Windows:
-          <code>pip install instagramy</code>
-          #### Linux:
-          <code>pip3 install instagramy</code>
-          ## Usage:
-          <code>from instagram import Instagram </code> <br/>
-          <code>name = Instagram("virat.kohli")</code> <br />
-          <code>popularity = name.popularity()</code><br />
-          <code>posts = name.get_posts_details()</code> <br />
-          <code>profile = name.get_profile_pic()</code> <br />
-          <code>bio = name.get_biography()</code>
-          ## Samples:
-          ![sample image](https://github.com/yogeshwaran01/instagramy/blob/master/samples/instagramy.png?raw=true)
-          ![sample image](https://github.com/yogeshwaran01/instagramy/blob/master/samples/instagramy(1).png?raw=true)
-          #### to get posts details as lists of dictionary:
-          ![sample image](https://github.com/yogeshwaran01/instagramy/blob/master/samples/ins.png?raw=true)
-           ## download dp of user:
-           [Download dp of the user](https://gist.github.com/yogeshwaran01/7e506f85990ff6de48466833ef86c4db)
+Description: # instagramy
+        
+        [![PyPI](https://img.shields.io/pypi/v/instagramy.svg)](https://pypi.org/project/instagramy/)
+        </br>
+        Get Instagram users informations and posts details
+        
+        ## Download
+        
+        ### Windows
+        
+        `pip install instagramy`
+        
+        ### Linux
+        
+        `pip3 install instagramy`
+        
+        ## Usage
+        
+            >>> from instagramy import InstagramUser
+        
+            >>> user = InstagramUser("github")
+            >>> user.is_verified
+            True
+            >>> user.biography
+            'Built for developers.'
+            >>> user.number_of_followers
+            121113
+            >>> user.number_of_posts
+            158
+        
+        ### [More Info](https://github.com/yogeshwaran01/instagramy/)
         
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3

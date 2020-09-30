@@ -1,7 +1,8 @@
+MANIFEST.in
 README.md
 setup.py
+bin/instagramy
 instagramy/__init__.py
-instagramy/__main__.py
 instagramy.egg-info/PKG-INFO
 instagramy.egg-info/SOURCES.txt
 instagramy.egg-info/dependency_links.txt

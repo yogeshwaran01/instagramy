@@ -1,182 +1,150 @@
-import requests
-from bs4 import BeautifulSoup
 import json
 
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
-}
+import requests
+from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
+
+headers = {"UserAgent": UserAgent().random}
 
 
-def html_1(soup):
-    scripts = soup.find_all('script')
-    main_scripts = scripts[4]
-    data = main_scripts.contents[0]
-    info_object = data[data.find('{"config"'): -1]
-    info = json.loads(info_object)
-    info = info['entry_data']['ProfilePage'][0]['graphql']['user']
-    return info
+def extract_user_profile(script) -> dict:
+    """
+    May raise json.decoder.JSONDecodeError
+    """
+    data = script.contents[0]
+    info = json.loads(data[data.find('{"config"') : -1])
+    return info["entry_data"]["ProfilePage"][0]["graphql"]["user"]
 
 
-def html_2(soup):
-    scripts = soup.find_all('script')
-    main_scripts = scripts[3]
-    data = main_scripts.contents[0]
-    info_object = data[data.find('{"config"'): -1]
-    info = json.loads(info_object)
-    info = info['entry_data']['ProfilePage'][0]['graphql']['user']
-    return info
-
-
-class Instagram(object):
+class InstagramUser:
+    """
+    Class InstagramUser scrapes instagram user information
+    >>> instagram_user = InstagramUser("github")
+    >>> instagram_user.is_verified
+    True
+    >>> instagram_user.biography
+    'Built for developers.'
+    """
 
     def __init__(self, username):
-        self.username = username
-        self.url = "https://www.instagram.com/{}/".format(username)
+        self.url = f"https://www.instagram.com/{username}/"
+        self.user_data = self.get_json()
 
-    def soup(self):
-        html = requests.get(self.url, headers=headers)
-        soup = BeautifulSoup(html.text, 'html.parser')
-        return soup
-
-    def get_json(self):
+    def get_json(self) -> dict:
+        """
+        Return a dict of user information
+        """
+        html = requests.get(self.url, headers=headers).text
+        scripts = BeautifulSoup(html, "html.parser").find_all("script")
         try:
-            info = html_1(self.soup())
-            return info
-        except:
-            info = html_2(self.soup())
-            return info
+            return extract_user_profile(scripts[4])
+        except (json.decoder.JSONDecodeError, KeyError):
+            return extract_user_profile(scripts[3])
 
-    def get_followers(self):
-        info = self.get_json()
-        followers = info['edge_followed_by']['count']
-        return followers
+    @property
+    def username(self) -> str:
+        return self.user_data["username"]
 
-    def get_followings(self):
-        info = self.get_json()
-        following = info['edge_follow']['count']
-        return following
+    @property
+    def fullname(self) -> str:
+        return self.user_data["full_name"]
 
-    def get_posts(self):
-        info = self.get_json()
-        posts = info['edge_owner_to_timeline_media']['count']
-        return posts
+    @property
+    def biography(self) -> str:
+        return self.user_data["biography"]
 
-    def get_biography(self):
-        info = self.get_json()
-        bio = info['biography']
-        return bio
+    @property
+    def email(self) -> str:
+        return self.user_data["business_email"]
 
-    def get_fullname(self):
-        info = self.get_json()
-        fullname = info['full_name']
-        return fullname
+    @property
+    def website(self) -> str:
+        return self.user_data["external_url"]
 
-    def get_username(self):
-        info = self.get_json()
-        username = info['username']
-        return username
+    @property
+    def number_of_followers(self) -> int:
+        return self.user_data["edge_followed_by"]["count"]
 
-    def get_profile_pic(self):
-        info = self.get_json()
-        pic = info['profile_pic_url_hd']
-        return pic
+    @property
+    def number_of_followings(self) -> int:
+        return self.user_data["edge_follow"]["count"]
 
-    def get_posts_details(self):
-        final_lists = []
-        info = self.get_json()
-        posts_details = info["edge_owner_to_timeline_media"]["edges"]
+    @property
+    def number_of_posts(self) -> int:
+        return self.user_data["edge_owner_to_timeline_media"]["count"]
+
+    @property
+    def profile_picture_url(self) -> str:
+        return self.user_data["profile_pic_url_hd"]
+
+    @property
+    def is_verified(self) -> bool:
+        return self.user_data["is_verified"]
+
+    @property
+    def is_private(self) -> bool:
+        return self.user_data["is_private"]
+
+    @property
+    def posts(self) -> list:
+        """
+        Only returns recent 12 post details
+        User account must be non private account
+        """
+
+        posts_lists = []
+        posts_details = self.user_data["edge_owner_to_timeline_media"]["edges"]
         for i in posts_details:
             data = {}
             try:
-                data["url"] = i['node']["display_url"]
-            except:
+                data["url"] = i["node"]["display_url"]
+            except (KeyError, TypeError):
                 data["url"] = None
             try:
-                data["likes"] = i['node']["edge_liked_by"]["count"]
-            except:
+                data["likes"] = i["node"]["edge_liked_by"]["count"]
+            except (KeyError, TypeError):
                 data["likes"] = None
             try:
-                data["comment"] = i['node']["edge_media_to_comment"]["count"]
-            except:
+                data["comment"] = i["node"]["edge_media_to_comment"]["count"]
+            except (KeyError, TypeError):
                 data["comment"] = None
             try:
-                data["caption"] = i['node']['accessibility_caption']
-            except:
+                data["caption"] = i["node"]["accessibility_caption"]
+            except (KeyError, TypeError):
                 data["caption"] = None
             try:
-                data["is_video"] = i['node']["is_video"]
-            except:
+                data["is_video"] = i["node"]["is_video"]
+            except (KeyError, TypeError):
                 data["is_video"] = None
             try:
-                data["timestamp"] = i['node']["taken_at_timestamp"]
-            except:
+                data["timestamp"] = i["node"]["taken_at_timestamp"]
+            except (KeyError, TypeError):
                 data["timestamp"] = None
             try:
-                data["location"] = i['node']["location"]
-            except:
+                data["location"] = i["node"]["location"]
+            except (KeyError, TypeError):
                 data["location"] = None
-            final_lists.append(data)
-        return final_lists
+            posts_lists.append(data)
+        return posts_lists
 
-    def get_posts_links(self):
-        post_links = []
-        a = self.get_posts_details()
-        for i in a:
-            post_links.append(i["url"])
-        return post_links
+    @property
+    def posts_url(self) -> str:
+        """
+        Only return recents 12 posts url
+        User account must be non private account
+        """
 
-    def popularity(self):
-        final = {"followers": self.get_followers(),
-                 "followings": self.get_followings(),
-                 "posts": self.get_posts()}
-        return final
+        return [i["url"] for i in self.posts]
 
-    def get_url(self):
-        info = self.get_json()
-        external_url = info["external_url"]
-        return external_url
-
-    def get_other_info(self):
-        info = self.get_json()
-        return {"is_private": info['is_private'],
-                "is_verified": info['is_verified'],
-                "is_business_account": info['is_business_account'],
-                "is_joined_recently": info['is_joined_recently'],
-                "has_ar_effects": info["has_ar_effects"],
-                "has_clips": info["has_clips"],
-                "has_guides":info["has_guides"],
-                "has_channel": info["has_channel"]}
-
-    def get_email(self):
-        info = self.get_json()
-        return info["business_email"]
-
-    def is_verified(self):
-        info = self.get_json()
-        return info['is_verified']
-    
-    def is_private(self):
-        info = self.get_json()
-        return info['is_private']
-
-class Instalysis(object):
-
-    def __init__(self,list_of_username):
-        self.users = list_of_username
-    
-    def analyis(self):
-        usernames = []
-        followers = []
-        following = []
-        posts = []
-        import pandas as pd
-        for user in self.users:
-            usernames.append(user)
-            user_obj = Instagram(user)
-            pop = user_obj.popularity()
-            followers.append(pop["followers"])
-            following.append(pop["followings"])
-            posts.append(pop["posts"])
-        data = {"Usernames":usernames,"Followers":followers,"Followings":following,"Posts":posts}
-        df = pd.DataFrame(data)
-        return df
+    @property
+    def other_info(self) -> dict:
+        return {
+            "is_private": self.user_data["is_private"],
+            "is_verified": self.user_data["is_verified"],
+            "is_business_account": self.user_data["is_business_account"],
+            "is_joined_recently": self.user_data["is_joined_recently"],
+            "has_ar_effects": self.user_data["has_ar_effects"],
+            "has_clips": self.user_data["has_clips"],
+            "has_guides": self.user_data["has_guides"],
+            "has_channel": self.user_data["has_channel"],
+        }
