@@ -28,4 +28,4 @@ Get Instagram users informations and posts details
     >>> user.number_of_posts
     158
 
-### [More Info](https://github.com/yogeshwaran01/instagramy/)
+### [More Info](https://github.com/yogeshwaran01/instagramy/blob/master/instagramy%20_documentation.ipynb)
