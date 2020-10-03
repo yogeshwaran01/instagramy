@@ -41,4 +41,4 @@ and hash tag details
     >>> len(hashtag.posts_url) # url of top posts as list
     68
 
-### [More Info](https://github.com/yogeshwaran01/instagramy/blob/master/instagramy%20_documentation.ipynb)
+### [More Info](https://github.com/yogeshwaran01/Python-Scripts/blob/master/Scripts/instagramy-docs.ipynb)
