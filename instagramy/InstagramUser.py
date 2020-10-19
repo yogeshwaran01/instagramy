@@ -6,6 +6,7 @@ from fake_useragent import UserAgent
 
 headers = {"UserAgent": UserAgent().random}
 
+
 def extract_user_profile(script) -> dict:
     """
     May raise json.decoder.JSONDecodeError
@@ -124,7 +125,9 @@ class InstagramUser:
             except (KeyError, TypeError):
                 data["shortcode"] = None
             try:
-                data["post_url"] = f'https://www.instagram.com/p/{i["node"]["shortcode"]}/'
+                data[
+                    "post_url"
+                ] = f'https://www.instagram.com/p/{i["node"]["shortcode"]}/'
             except:
                 data["post_url"] = None
             try:
@@ -158,6 +161,6 @@ class InstagramUser:
 
     def __str__(self) -> str:
         return f"{self.fullname} ({self.username}) -> {self.biography}"
-    
+
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}('{self.username}')"

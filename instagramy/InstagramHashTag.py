@@ -6,6 +6,7 @@ from fake_useragent import UserAgent
 
 headers = {"UserAgent": UserAgent().random}
 
+
 def extract_hashtag(script) -> dict:
     """
     May raise json.decoder.JSONDecodeError
@@ -13,6 +14,7 @@ def extract_hashtag(script) -> dict:
     data = script.contents[0]
     info = json.loads(data[data.find('{"config"') : -1])
     return info["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
+
 
 class InstagramHashTag:
     """
@@ -82,7 +84,9 @@ class InstagramHashTag:
             except (KeyError, TypeError):
                 data["shortcode"] = None
             try:
-                data["post_url"] = f'https://www.instagram.com/p/{node["node"]["shortcode"]}'
+                data[
+                    "post_url"
+                ] = f'https://www.instagram.com/p/{node["node"]["shortcode"]}'
             except (KeyError, TypeError):
                 data["post_url"] = None
             try:
@@ -98,7 +102,7 @@ class InstagramHashTag:
         Return Only top posts urls upto 70
         """
         return [i["display_url"] for i in self.top_posts]
-    
+
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}('{self.tagname}')"
 
