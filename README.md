@@ -41,4 +41,17 @@ and hash tag details
     >>> len(hashtag.posts_url) # url of top posts as list
     68
 
-### [More Info](https://github.com/yogeshwaran01/Python-Scripts/blob/master/Scripts/instagramy-docs.ipynb)
+### Instagram Post details
+
+    >>> from instagramy import InstagramPost
+        # Get post id from post url
+
+    >>> post = InstagramPost("CGeYX2OA61s")
+    >>> post.author
+    '@virat.kohli'
+    >>> post.number_of_likes
+    2203830
+    >>> post.number_of_comments
+    4629
+
+### [Full Documentation](https://github.com/yogeshwaran01/Python-Scripts/blob/master/Scripts/instagramy-docs.ipynb)

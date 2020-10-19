@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="instagramy",
-    version="3.2",
+    version="3.3",
     author="Yogeshwaran R",
     author_email="yogeshin247@gmail.com",
     description="Get Instagram user and hashtag information and posts details",
@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/yogeshwaran01/instagramy/",
     packages=setuptools.find_packages(),
-    download_url="https://github.com/yogeshwaran01/instagramy/archive/v_01.tar.gz",
+    download_url="https://github.com/yogeshwaran01/instagramy/archive/v_03.tar.gz",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
