@@ -24,7 +24,7 @@ url = "https://www.instagram.com/accounts/login/ajax/"
 class InstagramLogin:
     
     username = "yogeshwaran01"
-    password = "Yogesh2001*"
+    password = "########"
     
     def __init__(self):
         with requests.session() as self.session:
