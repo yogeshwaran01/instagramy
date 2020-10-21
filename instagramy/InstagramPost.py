@@ -68,7 +68,7 @@ class InstagramPost:
             post_details["description"] = info["description"]
         except (KeyError, TypeError):
             post_details["description"] = None
-        
+
         return post_details
 
     @property
