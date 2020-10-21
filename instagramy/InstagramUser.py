@@ -4,6 +4,8 @@ import requests
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
+from .InstagramChecks import check_username
+
 headers = {"UserAgent": UserAgent().random}
 
 
@@ -27,8 +29,11 @@ class InstagramUser:
     """
 
     def __init__(self, username: str):
-        self.url = f"https://www.instagram.com/{username}/"
-        self.user_data = self.get_json()
+        if check_username(username):
+            self.url = f"https://www.instagram.com/{username}/"
+            self.user_data = self.get_json()
+        else:
+            raise Exception("Username Not Found in Instagram")
 
     def get_json(self) -> dict:
         """

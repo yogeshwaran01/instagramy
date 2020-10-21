@@ -13,7 +13,10 @@ def extract_hashtag(script) -> dict:
     """
     data = script.contents[0]
     info = json.loads(data[data.find('{"config"') : -1])
-    return info["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
+    try:
+        return info["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
+    except (KeyError):
+        raise Exception("Hashtag not found")
 
 
 class InstagramHashTag:
@@ -107,4 +110,4 @@ class InstagramHashTag:
         return f"{self.__class__.__name__}('{self.tagname}')"
 
     def __str__(self) -> str:
-        return f"Hash Tag {'#' + self.tagname} has {self.number_of_posts} posts"
+        return f"{'#' + self.tagname} has {self.number_of_posts} posts"

@@ -33,18 +33,42 @@ class InstagramPost:
             requests.get(self.url, headers=headers).text, "html.parser"
         )
         data = str(soup.find("script", {"type": "application/ld+json"}))
-        info = json.loads(
-            data[data.find('{"@context":') : data.find('name"')][:-2] + "}"
-        )
-        post_details = {
-            "caption": info["caption"],
-            "uploaddate": info["uploadDate"],
-            "author": info["author"]["alternateName"],
-            "profile_page_url": info["author"]["mainEntityofPage"]["@id"],
-            "likes": info["interactionStatistic"]["userInteractionCount"],
-            "comments": info["commentCount"],
-            "description": info["description"],
-        }
+        try:
+            info = json.loads(
+                data[data.find('{"@context":') : data.find('name"')][:-2] + "}"
+            )
+        except (json.decoder.JSONDecodeError):
+            raise Exception("Not a Valid Post Id")
+        post_details = {}
+        try:
+            post_details["caption"] = info["caption"]
+        except (KeyError, TypeError):
+            post_details["caption"] = None
+        try:
+            post_details["uploaddate"] = info["uploadDate"]
+        except (KeyError, TypeError):
+            post_details["uploaddate"] = None
+        try:
+            post_details["author"] = info["author"]["alternateName"]
+        except (KeyError, TypeError):
+            post_details["author"] = None
+        try:
+            post_details["profile_page_url"] = info["author"]["mainEntityofPage"]["@id"]
+        except (KeyError, TypeError):
+            post_details["profile_page_url"] = None
+        try:
+            post_details["likes"] = info["interactionStatistic"]["userInteractionCount"]
+        except (KeyError, TypeError):
+            post_details["likes"] = None
+        try:
+            post_details["comments"] = info["commentCount"]
+        except (KeyError, TypeError):
+            post_details["comments"] = None
+        try:
+            post_details["description"] = info["description"]
+        except (KeyError, TypeError):
+            post_details["description"] = None
+        
         return post_details
 
     @property

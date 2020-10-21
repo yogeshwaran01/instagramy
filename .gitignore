@@ -3,3 +3,4 @@ dist
 build
 instagramy.egg-info
 .vscode
+instagramy/__pycache__
