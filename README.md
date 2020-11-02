@@ -49,7 +49,7 @@ Scrape Instagram Users Informations, Posts Details and Hashtags details. This Pa
 
 - [📊 Analysis Instagram Accounts with Matplotlib](https://github.com/yogeshwaran01/Python-Scripts/blob/master/Scripts/instalysis.py)
 
-- [#️⃣ Automate Hashtag posts](https://github.com/yogeshwaran01/Python-Scripts/blob/master/Scripts/instagram_hastags_post.py)
+- [#️⃣ Bulk Instagram Hashtag Posts Download](https://github.com/yogeshwaran01/Python-Scripts/blob/master/Scripts/instagram_hastags_post.py)
 
 ### Documentation
 
