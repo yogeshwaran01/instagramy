@@ -53,4 +53,4 @@ Scrape Instagram Users Informations, Posts Details and Hashtags details. This Pa
 
 ### Documentation
 
-[📖 Click Here](https://github.com/yogeshwaran01/Python-Scripts/blob/master/Scripts/instagramy-docs.ipynb)
+[📖 Click Here](https://yogeshwaran01.herokuapp.com/post?id=2)
