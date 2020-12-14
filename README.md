@@ -1,5 +1,7 @@
 # instagramy
 
+## Instagram does not allow scraping, This Package is don't work now!
+
 🌱
 
 [![PyPI](https://img.shields.io/pypi/v/instagramy.svg)](https://pypi.org/project/instagramy/) [![Downloads](https://pepy.tech/badge/instagramy)](https://pepy.tech/project/instagramy)
