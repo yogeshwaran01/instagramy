@@ -42,7 +42,7 @@ Class `InstagramUser` scrape some of the information related to the user of the 
 - username
 - website
 
-<img src="https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/user.png" width=100%height=100%>
+<img src="https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/user.png" width=100% height=100%>
 
 ### Instagram Hashtag details
 
@@ -56,7 +56,7 @@ Class `InstagramHashTag`  scrape some of the information related to the hash-tag
 - tagname
 - top_posts
 
-<img src="https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/hashtag.png" width=100%height=100%>
+<img src="https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/hashtag.png" width=100% height=100%>
 
 ### Instagram Post details
 
