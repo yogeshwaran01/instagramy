@@ -2,9 +2,10 @@ import json
 
 import requests
 from bs4 import BeautifulSoup
-from fake_useragent import UserAgent
 
-headers = {"UserAgent": UserAgent().random}
+
+from .headers import headers
+from .exceptions import PostIdNotFound
 
 
 class InstagramPost:
@@ -38,7 +39,7 @@ class InstagramPost:
                 data[data.find('{"@context":') : data.find('name"')][:-2] + "}"
             )
         except (json.decoder.JSONDecodeError):
-            raise Exception("Not a Valid Post Id")
+            raise PostIdNotFound
         post_details = {}
         try:
             post_details["caption"] = info["caption"]

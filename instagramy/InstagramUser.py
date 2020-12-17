@@ -2,11 +2,10 @@ import json
 
 import requests
 from bs4 import BeautifulSoup
-from fake_useragent import UserAgent
 
-from .InstagramChecks import check_username
 
-headers = {"UserAgent": UserAgent().random}
+from .headers import headers
+from .exceptions import UsernameNotFound
 
 
 def extract_user_profile(script) -> dict:
@@ -29,11 +28,9 @@ class InstagramUser:
     """
 
     def __init__(self, username: str):
-        if check_username(username):
-            self.url = f"https://www.instagram.com/{username}/"
-            self.user_data = self.get_json()
-        else:
-            raise Exception("Username Not Found in Instagram")
+
+        self.url = f"https://www.instagram.com/{username}/"
+        self.user_data = self.get_json()
 
     def get_json(self) -> dict:
         """
@@ -45,6 +42,8 @@ class InstagramUser:
             return extract_user_profile(scripts[4])
         except (json.decoder.JSONDecodeError, KeyError):
             return extract_user_profile(scripts[3])
+        except:
+            raise UsernameNotFound
 
     @property
     def username(self) -> str:

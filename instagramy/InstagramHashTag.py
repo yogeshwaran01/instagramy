@@ -2,9 +2,9 @@ import json
 
 import requests
 from bs4 import BeautifulSoup
-from fake_useragent import UserAgent
 
-headers = {"UserAgent": UserAgent().random}
+from .headers import headers
+from .exceptions import HashTagNotFound
 
 
 def extract_hashtag(script) -> dict:
@@ -16,7 +16,7 @@ def extract_hashtag(script) -> dict:
     try:
         return info["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
     except (KeyError):
-        raise Exception("Hashtag not found")
+        raise HashTagNotFound
 
 
 class InstagramHashTag:

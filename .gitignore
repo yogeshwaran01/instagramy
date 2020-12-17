@@ -4,3 +4,4 @@ build
 instagramy.egg-info
 .vscode
 instagramy/__pycache__
+test/__pycache__

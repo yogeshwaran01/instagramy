@@ -1,4 +1,14 @@
-from instagramy.InstagramHashTag import InstagramHashTag
-from instagramy.InstagramPost import InstagramPost
-from instagramy.InstagramUser import InstagramUser
-from instagramy.InstagramChecks import check_username, check_email, suggest_username
+# -*- coding: utf-8 -*-
+"""
+    instagramy
+    ~~~~~~~~~~
+
+    A python package for Instagram. It scarpe the Instagram
+    contents.
+
+    :license: MIT License
+"""
+
+from .InstagramUser import InstagramUser
+from .InstagramPost import InstagramPost
+from .InstagramHashTag import InstagramHashTag

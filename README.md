@@ -1,17 +1,13 @@
-# instagramy
-
-## Instagram does not allow scraping, This Package is don't work now!
-
-🌱
+# Instagramy
 
 [![PyPI](https://img.shields.io/pypi/v/instagramy.svg)](https://pypi.org/project/instagramy/) [![Downloads](https://pepy.tech/badge/instagramy)](https://pepy.tech/project/instagramy)
 [![GitHub license](https://img.shields.io/github/license/yogeshwaran01/instagramy?style=plastic)](https://github.com/yogeshwaran01/instagramy/blob/master/LICENSE.txt)
 [![Code style](https://img.shields.io/badge/codestyle-Black-blue)](https://github.com/psf/black)
 ![GitHub Repo size](https://img.shields.io/github/repo-size/yogeshwaran01/instagramy)
 
-Scrape Instagram Users Informations, Posts Details and Hashtags details. This Package scrape the user's recent posts with some information like likes, comment, caption and etc. No login required.
+</hr>
 
-</br>
+Scrape Instagram Users Informations, Posts Details, and Hashtags details. This Package scrapes the user's recent posts with some information like likes, comments, captions and etc. No login required.
 
 ## Download
 
@@ -27,32 +23,69 @@ Scrape Instagram Users Informations, Posts Details and Hashtags details. This Pa
 
 ### Instagram User details
 
-![user](samples/user.png)
+Class `InstagramUser` scrape some of the information related to the user of the Instagram
+
+#### Properties
+
+- biography
+- email
+- fullname
+- is_private
+- is_verified
+- number_of_followers
+- number_of_followings
+- number_of_posts
+- other_info
+- posts
+- posts_display_urls
+- profile_picture_url
+- username
+- website
+
+<img src="https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/user.png" width=100%height=100%>
 
 ### Instagram Hashtag details
 
-![hashtag](samples/hashtag.png)
+Class `InstagramHashTag`  scrape some of the information related to the hash-tag of the Instagram
+
+#### Properties
+
+- number_of_posts
+- posts_display_urls
+- profile_pic_url
+- tagname
+- top_posts
+
+<img src="https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/hashtag.png" width=100%height=100%>
 
 ### Instagram Post details
 
-![Post](samples/post.png)
+Class `InstagramPost`  scrape some of the information related to the particular post of Instagram. It takes the post id as the parameter. You can get the post id from the URL of the Instagram posts from the property of `InstagramUser.posts`. or `InstagramHagTag.top_posts`
 
-### Check Username is in Instagram
+#### Properties
 
-![check](samples/check.png)
+- author
+- caption
+- description
+- number_of_comments
+- number_of_likes
+- post_detail
 
-### Suggest Username for Instagram
+<img src="https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/post.png" width=100% height=100%>
 
-![suggest](samples/suggest.png)
+## Note
+
+- Don't send multiple request, If you send multiple request, the Instagram redirect to login page, If you send multiple request, reboot your pc or change the ip or try after somtimes.
+- This Package does not work in Remote PC or any Online python Interpreter
+- This Package not scrap all the posts from a certain account, limit of the posts only 12 ( For non-private account)
+- This Package not scrap all the posts of certain hash-tags it only scrapes the top 60 - 70 posts in certain hash-tags.
 
 ### Sample-Scripts
+
+Some sample scripts based on this package
 
 - [👦 Download Instagram DP](https://github.com/yogeshwaran01/Python-Scripts/blob/master/Scripts/instadp.py)
 
 - [📊 Analysis Instagram Accounts with Matplotlib](https://github.com/yogeshwaran01/Python-Scripts/blob/master/Scripts/instalysis.py)
 
 - [#️⃣ Bulk Instagram Hashtag Posts Download](https://github.com/yogeshwaran01/Python-Scripts/blob/master/Scripts/instagram_hastags_post.py)
-
-### Documentation
-
-[📖 Click Here](https://yogeshwaran01.herokuapp.com/post?id=2)
