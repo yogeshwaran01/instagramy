@@ -1,22 +1,25 @@
-import json
+"""
+    instagramy.InstagramHashtag
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import requests
-from bs4 import BeautifulSoup
+    This module scrape data
+    of given Instagram Hashtag.
 
-from .headers import headers
-from .exceptions import HashTagNotFound
+    Usage Example
+    -------------
+    ::
 
+        from instagramy.InstagramHashtag import InstagramHashtag
 
-def extract_hashtag(script) -> dict:
-    """
-    May raise json.decoder.JSONDecodeError
-    """
-    data = script.contents[0]
-    info = json.loads(data[data.find('{"config"') : -1])
-    try:
-        return info["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
-    except (KeyError):
-        raise HashTagNotFound
+        >>> tag = InstagramHashtag('python')
+        >>> tag.number_of_posts
+        >>> tag.top_posts
+
+"""
+
+from .core.parser import ParseHashTag
+from .core.requests import get
+from .core.exceptions import HTTPError, HashTagNotFound
 
 
 class InstagramHashTag:
@@ -34,28 +37,35 @@ class InstagramHashTag:
 
     def get_json(self) -> dict:
         """
-        Return a dict of user information
+        Return a dict of Hashtag information
         """
-        html = requests.get(self.url, headers=headers).text
-        scripts = BeautifulSoup(html, "html.parser").find_all("script")
-        return extract_hashtag(scripts[3])
+        try:
+            html = get(self.url)
+        except HTTPError:
+            raise HashTagNotFound(self.url.split("/")[-2])
+        parser = ParseHashTag()
+        parser.feed(html)
+        return parser.Data
 
     @property
     def tagname(self) -> str:
+        """ Tagname of the Hagtag """
         return self.tag_data["name"]
 
     @property
     def profile_pic_url(self) -> str:
+        """ Profile picture url of the Hagtag """
         return self.tag_data["profile_pic_url"]
 
     @property
     def number_of_posts(self) -> int:
+        """ No.of posts in given Hashtag """
         return self.tag_data["edge_hashtag_to_media"]["count"]
 
     @property
     def top_posts(self) -> list:
         """
-        Return Only top posts details upto 70
+        Top post data (<70) in the given Hashtag
         """
 
         post_lists = []
@@ -102,7 +112,7 @@ class InstagramHashTag:
     @property
     def posts_display_urls(self) -> list:
         """
-        Return Only top posts urls upto 70
+        Top post (<70) in the given Hashtag
         """
         return [i["display_url"] for i in self.top_posts]
 

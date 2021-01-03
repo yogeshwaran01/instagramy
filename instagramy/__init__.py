@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    instagramy
+    Instagramy
     ~~~~~~~~~~
 
     A python package for Instagram. It scarpe the Instagram
