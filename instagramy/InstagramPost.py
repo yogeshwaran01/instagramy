@@ -1,19 +1,34 @@
-import json
+"""
+    instagramy.InstagramPost
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import requests
-from bs4 import BeautifulSoup
+    This module scrape Instagram Post data
+    for given Instagram Post id.
 
+    Usage Example
+    -------------
+    ::
 
-from .headers import headers
-from .exceptions import PostIdNotFound
+        from instagramy.InstagramHashtag import InstagramPost
+
+        >>> post = InstagramPost('CGeYX2OA61s')
+        >>> post.author
+        >>> post.number_of_likes
+        >>> post.number_of_comments
+
+"""
+
+from .core.parser import ParsePost
+from .core.requests import get
+from .core.exceptions import PostIdNotFound, HTTPError
 
 
 class InstagramPost:
     """
     Class InstagramPost scrape the post information
     by given post id (From url of the post)
-    https://www.instagram.com/p/<post_id>/
-    https://www.instagram.com/p/CGeYX2OA61s/
+    `https://www.instagram.com/p/<post_id>/`
+    `https://www.instagram.com/p/CGeYX2OA61s/`
 
     >>> post = InstagramPost("CGeYX2OA61s")
     >>> post.author
@@ -30,16 +45,17 @@ class InstagramPost:
         self.post_details = self.post_detail()
 
     def post_detail(self) -> dict:
-        soup = BeautifulSoup(
-            requests.get(self.url, headers=headers).text, "html.parser"
-        )
-        data = str(soup.find("script", {"type": "application/ld+json"}))
+        """
+        Return a dict of Post information
+        """
+
         try:
-            info = json.loads(
-                data[data.find('{"@context":') : data.find('name"')][:-2] + "}"
-            )
-        except (json.decoder.JSONDecodeError):
-            raise PostIdNotFound
+            html = get(self.url)
+        except HTTPError:
+            raise PostIdNotFound(self.post_id)
+        parser = ParsePost()
+        parser.feed(html)
+        info = parser.Data
         post_details = {}
         try:
             post_details["caption"] = info["caption"]
@@ -74,22 +90,27 @@ class InstagramPost:
 
     @property
     def number_of_likes(self) -> int:
+        """ No.of Like is given post """
         return int(self.post_details["likes"])
 
     @property
     def number_of_comments(self) -> int:
+        """ No.of Comments is given post """
         return int(self.post_details["comments"])
 
     @property
     def author(self) -> str:
+        """ Author of the Post """
         return self.post_details["author"]
 
     @property
     def caption(self) -> str:
+        """ Caption of the Post """
         return self.post_details["caption"]
 
     @property
     def description(self) -> str:
+        """ Discription of the Post given by Instagram """
         return self.post_details["description"]
 
     def __repr__(self) -> str:

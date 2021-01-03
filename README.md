@@ -1,24 +1,49 @@
-# Instagramy
+<h1 align="center"> Instagramy </h1>
 
-[![PyPI](https://img.shields.io/pypi/v/instagramy.svg)](https://pypi.org/project/instagramy/) [![Downloads](https://pepy.tech/badge/instagramy)](https://pepy.tech/project/instagramy)
-[![GitHub license](https://img.shields.io/github/license/yogeshwaran01/instagramy?style=plastic)](https://github.com/yogeshwaran01/instagramy/blob/master/LICENSE.txt)
-[![Code style](https://img.shields.io/badge/codestyle-Black-blue)](https://github.com/psf/black)
-![GitHub Repo size](https://img.shields.io/github/repo-size/yogeshwaran01/instagramy)
+<p align="center">Python Package for Instagram Without Any external dependencies</p>
+
+<ul>
+</ul>
+
+<p align="center">
+    <a href="https://pypi.org/project/instagramy/">
+    <img alt="PyPi" src="https://img.shields.io/pypi/v/instagramy.svg"/>
+    </a>
+    <a href="https://pepy.tech/project/instagramy">
+    <img alt="Downloads" src="https://pepy.tech/badge/instagramy"/>
+    </a>
+    <a href="https://github.com/yogeshwaran01/instagramy/blob/master/LICENSE.txt">
+    <img alt="GitHub license" src="https://img.shields.io/github/license/yogeshwaran01/instagramy?style=plastic"/>
+    </a>
+    <a href="https://github.com/psf/black">
+    <img alt="Code style" src="https://img.shields.io/badge/codestyle-Black-blue"/>
+    </a>
+    <img alt="GitHub Repo size" src="https://img.shields.io/github/repo-size/yogeshwaran01/instagramy"/>
+</p>
 
 </hr>
 
-Scrape Instagram Users Informations, Posts Details, and Hashtags details. This Package scrapes the user's recent posts with some information like likes, comments, captions and etc. No login required.
+<p align="center">
+Scrape Instagram Users Informations, Posts Details, and Hashtags details. This Package scrapes the user's recent posts with some information like likes, comments, captions and etc. No login required and any dependencies.
+</p>
 
 ## Download
 
-### Windows
+### Installation
 
-`> pip install instagramy`
+```bash
 
-### Linux
+pip install instagramy
 
-`$ pip3 install instagramy`
+```
 
+### Upgrade
+
+```bash
+
+pip install --upgrade instagramy
+
+```
 ## Usage
 
 ### Instagram User details
@@ -89,3 +114,5 @@ Some sample scripts based on this package
 - [📊 Analysis Instagram Accounts with Matplotlib](https://github.com/yogeshwaran01/Python-Scripts/blob/master/Scripts/instalysis.py)
 
 - [#️⃣ Bulk Instagram Hashtag Posts Download](https://github.com/yogeshwaran01/Python-Scripts/blob/master/Scripts/instagram_hastags_post.py)
+
+<h3 align="center"> Made with Python ❤️ </h3>
