@@ -53,7 +53,6 @@ Class `InstagramUser` scrape some of the information related to the user of the 
 #### Properties
 
 - biography
-- email
 - fullname
 - is_private
 - is_verified
@@ -95,6 +94,7 @@ Class `InstagramPost`  scrape some of the information related to the particular 
 - number_of_comments
 - number_of_likes
 - post_detail
+- uploaded_date
 
 <img src="https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/post.png" width=100% height=100%>
 
