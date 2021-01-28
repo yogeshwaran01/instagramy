@@ -5,14 +5,14 @@ from .InstagramPost import InstagramPost
 from .InstagramHashTag import InstagramHashTag
 
 
-def pprint(data):
+def _pprint(data):
     for key, value in data.items():
         if value is None:
             value = ""
         print("{:<10} {:<10} ".format(key, value))
 
 
-def user_(username):
+def _user(username):
     user = InstagramUser(username)
     return {
         "Username": user.username,
@@ -24,7 +24,7 @@ def user_(username):
     }
 
 
-def post_(post_id):
+def _post(post_id):
     post = InstagramPost(post_id)
     return {
         "Post Id": post.post_id,
@@ -36,30 +36,32 @@ def post_(post_id):
     }
 
 
-def tag_(tag):
+def _tag(tag):
     t = InstagramHashTag(tag)
     return {"Hashtag": "#" + t.tagname, "Posts": t.number_of_posts}
 
 
-parser = argparse.ArgumentParser(
-    description="Scrape Instagram Users Informations, Posts Details, and Hashtags details"
-)
+if __name__ == "__main__":
+    
+    parser = argparse.ArgumentParser(
+        description="Scrape Instagram Users Informations, Posts Details, and Hashtags details"
+    )
 
-parser.add_argument("-u", "--user", required=False, help="Instagram Username", type=str)
-parser.add_argument("-p", "--post", required=False, help="Instagram Post ID", type=str)
-parser.add_argument(
-    "-t", "--tag", required=False, help="Instagram Hashtag name", type=str
-)
+    parser.add_argument("-u", "--user", required=False, help="Instagram Username", type=str)
+    parser.add_argument("-p", "--post", required=False, help="Instagram Post ID", type=str)
+    parser.add_argument(
+        "-t", "--tag", required=False, help="Instagram Hashtag name", type=str
+    )
 
-args = parser.parse_args()
+    args = parser.parse_args()
 
-username = args.user
-tag_name = args.tag
-post = args.post
+    username = args.user
+    tag_name = args.tag
+    post = args.post
 
-if username:
-    pprint(user_(username))
-elif tag_name:
-    pprint(tag_(tag_name))
-elif post:
-    pprint(post_(post))
+    if username:
+        _pprint(_user(username))
+    elif tag_name:
+        _pprint(_tag(tag_name))
+    elif post:
+        _pprint(_post(post))
