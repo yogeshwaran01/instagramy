@@ -7,3 +7,4 @@ instagramy/__pycache__
 test/__pycache__
 core/__pycache__
 instagramy/core/__pycache__
+.instagramy_cache

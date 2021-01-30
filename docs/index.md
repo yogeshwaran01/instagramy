@@ -1,61 +1,89 @@
-# Instagramy
+<h1 align="center"> Instagramy </h1>
 
-[![PyPI](https://img.shields.io/pypi/v/instagramy.svg)](https://pypi.org/project/instagramy/) [![Downloads](https://pepy.tech/badge/instagramy)](https://pepy.tech/project/instagramy)
-[![GitHub license](https://img.shields.io/github/license/yogeshwaran01/instagramy?style=plastic)](https://github.com/yogeshwaran01/instagramy/blob/master/LICENSE.txt)
-[![Code style](https://img.shields.io/badge/codestyle-Black-blue)](https://github.com/psf/black)
-![GitHub Repo size](https://img.shields.io/github/repo-size/yogeshwaran01/instagramy)
+<p align="center">Python Package for Instagram Without Any external dependencies</p>
 
-<hr>
+<ul>
+</ul>
 
-Scrape Instagram Users Informations, Posts Details, and Hashtags details. This Package scrapes the user's recent posts with some information like likes, comment, caption and etc. No login required.
+<p align="center">
+    <a href="https://pypi.org/project/instagramy/">
+    <img alt="PyPi" src="https://img.shields.io/pypi/v/instagramy.svg"/>
+    </a>
+    <a href="https://pepy.tech/project/instagramy">
+    <img alt="Downloads" src="https://pepy.tech/badge/instagramy"/>
+    </a>
+    <a href="https://github.com/yogeshwaran01/instagramy/blob/master/LICENSE.txt">
+    <img alt="GitHub license" src="https://img.shields.io/github/license/yogeshwaran01/instagramy?style=plastic"/>
+    </a>
+    <a href="https://github.com/psf/black">
+    <img alt="Code style" src="https://img.shields.io/badge/codestyle-Black-blue"/>
+    </a>
+    <img alt="GitHub Repo size" src="https://img.shields.io/github/repo-size/yogeshwaran01/instagramy"/>
+</p>
 
+</hr>
+
+<p align="center">
+Scrape Instagram Users Informations, Posts Details, and Hashtags details. This Package scrapes the user's recent posts with some information like likes, comments, captions and etc. No login required and any dependencies.
+</p>
 
 ## Download
 
-### Windows
+### Installation
 
-`> pip install instagramy`
+```bash
 
-### Linux
+pip install instagramy
 
-`$ pip3 install instagramy`
+```
 
+### Upgrade
+
+```bash
+
+pip install --upgrade instagramy
+
+```
 ## Usage
 
 ### Instagram User details
+
 Class `InstagramUser` scrape some of the information related to the user of the Instagram
 
 #### Properties
+
 - biography
-- email
 - fullname
 - is_private
 - is_verified
 - number_of_followers
 - number_of_followings
--  number_of_posts
+- number_of_posts
 - other_info
 - posts
--  posts_display_urls
+- posts_display_urls
 - profile_picture_url
 - username
 - website
 
-![user](https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/user.png)
+<img src="https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/user.png" width=100% height=100%>
 
 ### Instagram Hashtag details
+
 Class `InstagramHashTag`  scrape some of the information related to the hash-tag of the Instagram
 
 #### Properties
+
 - number_of_posts
 - posts_display_urls
 - profile_pic_url
 - tagname
 - top_posts
 
-![hashtag](https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/hashtag.png)
+<img src="https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/hashtag.png" width=100% height=100%>
 
 ### Instagram Post details
+
 Class `InstagramPost`  scrape some of the information related to the particular post of Instagram. It takes the post id as the parameter. You can get the post id from the URL of the Instagram posts from the property of `InstagramUser.posts`. or `InstagramHagTag.top_posts`
 
 #### Properties
@@ -66,26 +94,16 @@ Class `InstagramPost`  scrape some of the information related to the particular 
 - number_of_comments
 - number_of_likes
 - post_detail
+- uploaded_date
 
-![Post](https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/post.png)
-
-### Check Username is in Instagram
-Function `check_username` checks the user is on Instagram or not
-
-![check](https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/check.png)
-
-### Suggest Username for Instagram
-Function `suggest_username` suggests username for the  Instagram
-
-![suggest](https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/suggest.png)
-
-### Check E-Mail is in Instagram
-Function `check_email` checks the email is on Instagram or not.
+<img src="https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/post.png" width=100% height=100%>
 
 ## Note
+
+- Don't send multiple request, If you send multiple request, the Instagram redirect to login page, If you send multiple request, reboot your pc or change the ip or try after somtimes.
 - This Package does not work in Remote PC or any Online python Interpreter
--  This Package not scrap all the posts from a certain account, limit of the posts only 12 ( For non-private account)
-- This Package not scrap all the posts of certain hash-tags it only scrap the top 60 - 70 posts in certain hash-tags.
+- This Package not scrap all the posts from a certain account, limit of the posts only 12 ( For non-private account)
+- This Package not scrap all the posts of certain hash-tags it only scrapes the top 60 - 70 posts in certain hash-tags.
 
 ### Sample-Scripts
 
@@ -97,3 +115,4 @@ Some sample scripts based on this package
 
 - [#️⃣ Bulk Instagram Hashtag Posts Download](https://github.com/yogeshwaran01/Python-Scripts/blob/master/Scripts/instagram_hastags_post.py)
 
+<h3 align="center"> Made with Python ❤️ </h3>

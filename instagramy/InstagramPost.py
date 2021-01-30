@@ -19,8 +19,10 @@
 """
 
 from .core.parser import ParsePost
+from .core.cache import Cache
 from .core.requests import get
-from .core.exceptions import PostIdNotFound, HTTPError
+from .core.exceptions import PostIdNotFound
+from .core.exceptions import HTTPError
 
 
 class InstagramPost:
@@ -39,10 +41,18 @@ class InstagramPost:
     4629
     """
 
-    def __init__(self, post_id: str):
+    def __init__(self, post_id: str, from_cache=True):
         self.post_id = post_id
         self.url = f"https://www.instagram.com/p/{post_id}/"
-        self.post_details = self.post_detail()
+        if from_cache:
+            cache = Cache("post")
+            if cache.is_exists(post_id):
+                self.post_details = cache.read_cache(post_id)
+            else:
+                self.post_details = self.post_detail()
+                cache.make_cache(post_id, self.post_details)
+        else:
+            self.post_details = self.post_detail()
 
     def post_detail(self) -> dict:
         """
@@ -110,8 +120,13 @@ class InstagramPost:
 
     @property
     def description(self) -> str:
-        """ Discription of the Post given by Instagram """
+        """ Description of the Post given by Instagram """
         return self.post_details["description"]
+
+    @property
+    def upload_date(self) -> str:
+        """ Upload date of the Post """
+        return self.post_details["uploaddate"]
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}('{self.post_id}')"

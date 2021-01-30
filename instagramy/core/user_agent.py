@@ -1,7 +1,4 @@
-""" Random Headers for webscraping """
-
-import random
-
+""" User Agents for webscraping """
 
 # User-Agents for Web-Scraping
 user_agents = [
@@ -9,5 +6,3 @@ user_agents = [
     "Googlebot/2.1 (+http://www.googlebot.com/bot.html)",
     "Googlebot/2.1 (+http://www.google.com/bot.html)",
 ]
-
-headers = {"User-Agent": f"user-agent: {random.choice(user_agents)}"}

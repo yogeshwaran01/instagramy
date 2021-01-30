@@ -16,12 +16,12 @@ class ParseUser(HTMLParser):
     This Class Inherits html.parser.HtmlParser
     """
 
-    Data = ""
+    Data = {}
 
     def handle_data(self, data):
         if data.startswith("window._sharedData"):
             try:
-                self.Data = json.loads(data[data.find('{"config"') : -1])["entry_data"][
+                self.Data = json.loads(data[data.find('{"config"'): -1])["entry_data"][
                     "ProfilePage"
                 ][0]["graphql"]["user"]
             except (KeyError, json.JSONDecodeError):
@@ -40,7 +40,7 @@ class ParsePost(HTMLParser):
     This Class Inherits html.parser.HtmlParser
     """
 
-    Data = ""
+    Data = {}
 
     def handle_data(self, data):
         if '{"@context"' in data:
@@ -62,12 +62,12 @@ class ParseHashTag(HTMLParser):
     This Class Inherits html.parser.HtmlParser
     """
 
-    Data = ""
+    Data = {}
 
     def handle_data(self, data):
         if data.startswith("window._sharedData"):
             try:
-                self.Data = json.loads(data[data.find('{"config"') : -1])["entry_data"][
+                self.Data = json.loads(data[data.find('{"config"'): -1])["entry_data"][
                     "TagPage"
                 ][0]["graphql"]["hashtag"]
             except (KeyError, json.JSONDecodeError):

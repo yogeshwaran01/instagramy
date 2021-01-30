@@ -19,8 +19,10 @@
 """
 
 from .core.parser import ParseUser
+from .core.cache import Cache
 from .core.requests import get
-from .core.exceptions import UsernameNotFound, HTTPError
+from .core.exceptions import UsernameNotFound
+from .core.exceptions import HTTPError
 
 
 class InstagramUser:
@@ -33,10 +35,18 @@ class InstagramUser:
     'Built for developers.'
     """
 
-    def __init__(self, username: str):
+    def __init__(self, username: str, from_cache=True):
 
         self.url = f"https://www.instagram.com/{username}/"
-        self.user_data = self.get_json()
+        if from_cache:
+            cache = Cache("user")
+            if cache.is_exists(username):
+                self.user_data = cache.read_cache(username)
+            else:
+                self.user_data = self.get_json()
+                cache.make_cache(username, self.user_data)
+        else:
+            self.user_data = self.get_json()
 
     def get_json(self) -> dict:
         """
@@ -46,7 +56,7 @@ class InstagramUser:
             html = get(self.url)
         except HTTPError:
             raise UsernameNotFound(self.url.split("/")[-2])
-            
+
         parser = ParseUser()
         parser.feed(html)
         return parser.Data
@@ -65,11 +75,6 @@ class InstagramUser:
     def biography(self) -> str:
         """ Biography of the given user """
         return self.user_data["biography"]
-
-    @property
-    def email(self) -> str:
-        """ Email of the given user """
-        return self.user_data["business_email"]
 
     @property
     def website(self) -> str:
