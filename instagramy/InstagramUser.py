@@ -21,7 +21,8 @@
 from .core.parser import ParseUser
 from .core.cache import Cache
 from .core.requests import get
-from .core.exceptions import UsernameNotFound, HTTPError
+from .core.exceptions import UsernameNotFound
+from .core.exceptions import HTTPError
 
 
 class InstagramUser:

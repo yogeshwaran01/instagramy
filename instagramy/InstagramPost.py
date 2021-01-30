@@ -21,7 +21,8 @@
 from .core.parser import ParsePost
 from .core.cache import Cache
 from .core.requests import get
-from .core.exceptions import PostIdNotFound, HTTPError
+from .core.exceptions import PostIdNotFound
+from .core.exceptions import HTTPError
 
 
 class InstagramPost:
@@ -119,7 +120,7 @@ class InstagramPost:
 
     @property
     def description(self) -> str:
-        """ Discription of the Post given by Instagram """
+        """ Description of the Post given by Instagram """
         return self.post_details["description"]
 
     @property

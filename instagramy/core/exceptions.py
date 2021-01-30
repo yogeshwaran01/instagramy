@@ -36,4 +36,4 @@ class RedirectionError(Exception):
 
     def __str__(self):
         return "Instagram Redirects you to login page, \
-Try Afer Sometime or Reboot your PC"
+Try After Sometime or Reboot your PC"

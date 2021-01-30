@@ -20,7 +20,8 @@
 from .core.parser import ParseHashTag
 from .core.cache import Cache
 from .core.requests import get
-from .core.exceptions import HTTPError, HashTagNotFound
+from .core.exceptions import HashTagNotFound
+from .core.exceptions import HTTPError
 
 
 class InstagramHashTag:

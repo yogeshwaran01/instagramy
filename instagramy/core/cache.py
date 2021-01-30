@@ -15,7 +15,9 @@ class Cache:
         if not os.path.isdir(cache_dir):
             os.mkdir(cache_dir)
         with open(cache_dir + "/CACHEDIR.TAG", "w") as file:
-            file.write("# This file is a cache directory tag created by instagramy." + "\n")
+            file.write(
+                "# This file is a cache directory tag created by instagramy." + "\n"
+            )
 
     def is_exists(self, name: str) -> bool:
         return os.path.isfile(cache_dir + f"/{name}_{self.key}" + ".json")
