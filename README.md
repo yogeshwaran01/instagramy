@@ -19,6 +19,8 @@
     <img alt="Code style" src="https://img.shields.io/badge/codestyle-Black-blue"/>
     </a>
     <img alt="GitHub Repo size" src="https://img.shields.io/github/repo-size/yogeshwaran01/instagramy"/>
+    <img alt="Actions" src="https://github.com/yogeshwaran01/instagramy/workflows/Python%20package/badge.svg"/>
+    <img alt="Actions" src="https://github.com/yogeshwaran01/instagramy/workflows/Upload%20Python%20Package/badge.svg"/>
 </p>
 
 </hr>
@@ -98,12 +100,26 @@ Class `InstagramPost`  scrape some of the information related to the particular 
 
 <img src="https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/post.png" width=100% height=100%>
 
-## Note
+## Caching
 
-- Don't send multiple request, If you send multiple request, the Instagram redirect to login page, If you send multiple request, reboot your pc or change the ip or try after somtimes.
+From version 4.1 it does some caching process for avoid some errors. Due to caching the package may return old data of users or hashtags.
+To avoid this just use agrument `from_cache=False` or delete the hidden folder `.instagramy_cache`
+
+```python
+
+from instagram import InstagramUser
+
+user = InstagramUser('github', from_cache=False)
+
+```
+
+## ⚠️ Note
+
+- Don't send multiple requests, If you send multiple requests, the Instagram redirects to the login page, If you send multiple requests, reboot your pc or change the IP or try after sometimes.
 - This Package does not work in Remote PC or any Online python Interpreter
-- This Package not scrap all the posts from a certain account, limit of the posts only 12 ( For non-private account)
+- This Package not scrap all the posts from a certain account, the limit of the posts only 12 ( For non-private account)
 - This Package not scrap all the posts of certain hash-tags it only scrapes the top 60 - 70 posts in certain hash-tags.
+
 
 ### Sample-Scripts
 
