@@ -13,7 +13,7 @@
     <img alt="Downloads" src="https://pepy.tech/badge/instagramy"/>
     </a>
     <a href="https://github.com/yogeshwaran01/instagramy/blob/master/LICENSE.txt">
-    <img alt="GitHub license" src="https://img.shields.io/github/license/yogeshwaran01/instagramy?style=plastic"/>
+    <img alt="GitHub license" src="https://img.shields.io/github/license/yogeshwaran01/instagramy?color=blue"/>
     </a>
     <a href="https://github.com/psf/black">
     <img alt="Code style" src="https://img.shields.io/badge/codestyle-Black-blue"/>
@@ -107,7 +107,7 @@ To avoid this just use agrument `from_cache=False` or delete the hidden folder `
 
 ```python
 
-from instagram import InstagramUser
+from instagramy import InstagramUser
 
 user = InstagramUser('github', from_cache=False)
 
@@ -115,10 +115,11 @@ user = InstagramUser('github', from_cache=False)
 
 ## ⚠️ Note
 
-- Don't send multiple requests, If you send multiple requests, the Instagram redirects to the login page, If you send multiple requests, reboot your pc or change the IP or try after sometimes.
-- This Package does not work in Remote PC or any Online python Interpreter
-- This Package not scrap all the posts from a certain account, the limit of the posts only 12 ( For non-private account)
-- This Package not scrap all the posts of certain hash-tags it only scrapes the top 60 - 70 posts in certain hash-tags.
+
+- Don't send multiple requests, the Instagram redirects to the login page, If you send multiple requests, reboot your pc or change the IP or try after sometimes.
+- This Package does not work in Remote PC or any Online python Interpreter.
+- This Package does not scrap all the posts from an account, the limit of the post only 12 (For non-private account)
+- This Package not scrap all the posts of given hash-tags it only scrapes the top 60 - 70 posts .
 
 
 ### Sample-Scripts
