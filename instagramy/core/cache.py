@@ -2,6 +2,7 @@
 
 import os
 import json
+import shutil
 
 cache_dir = ".instagramy_cache"
 
@@ -29,3 +30,14 @@ class Cache:
     def read_cache(self, name: str) -> dict:
         with open(cache_dir + f"/{name}_{self.key}" + ".json", "r") as file:
             return json.load(file)
+
+
+def list_caches() -> None:
+    """ List of all Cache files created by instagramy in current dir """
+
+    return os.listdir(cache_dir)
+
+def clear_caches() -> None:
+    """ Clear all Caches created by instagramy in current dir """
+
+    return shutil.rmtree(cache_dir, ignore_errors=True)
