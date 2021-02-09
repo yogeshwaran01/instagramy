@@ -17,12 +17,13 @@
         >>> post.number_of_comments
 
 """
+from datetime import datetime
 
-from .core.parser import ParsePost
-from .core.cache import Cache
-from .core.requests import get
+from .core.parser import Viewer
+from .core.parser import Parser
 from .core.exceptions import PostIdNotFound
 from .core.exceptions import HTTPError
+from .core.requests import get
 
 
 class InstagramPost:
@@ -41,92 +42,74 @@ class InstagramPost:
     4629
     """
 
-    def __init__(self, post_id: str, from_cache=True):
+    def __init__(self, post_id: str, sessionid=None):
         self.post_id = post_id
         self.url = f"https://www.instagram.com/p/{post_id}/"
-        if from_cache:
-            cache = Cache("post")
-            if cache.is_exists(post_id):
-                self.post_details = cache.read_cache(post_id)
-            else:
-                self.post_details = self.post_detail()
-                cache.make_cache(post_id, self.post_details)
+        self.sessionid = sessionid
+        data = self.get_json()
+        self.post_details = data["entry_data"]["PostPage"][0]["graphql"][
+            "shortcode_media"
+        ]
+        if sessionid:
+            self.viewer = Viewer(data=data["config"]["viewer"])
         else:
-            self.post_details = self.post_detail()
+            self.viewer = None
 
-    def post_detail(self) -> dict:
+    def get_json(self) -> dict:
         """
         Return a dict of Post information
         """
 
         try:
-            html = get(self.url)
+            html = get(self.url, sessionid=self.sessionid)
         except HTTPError:
             raise PostIdNotFound(self.post_id)
-        parser = ParsePost()
+        parser = Parser()
         parser.feed(html)
         info = parser.Data
-        post_details = {}
-        try:
-            post_details["caption"] = info["caption"]
-        except (KeyError, TypeError):
-            post_details["caption"] = None
-        try:
-            post_details["uploaddate"] = info["uploadDate"]
-        except (KeyError, TypeError):
-            post_details["uploaddate"] = None
-        try:
-            post_details["author"] = info["author"]["alternateName"]
-        except (KeyError, TypeError):
-            post_details["author"] = None
-        try:
-            post_details["profile_page_url"] = info["author"]["mainEntityofPage"]["@id"]
-        except (KeyError, TypeError):
-            post_details["profile_page_url"] = None
-        try:
-            post_details["likes"] = info["interactionStatistic"]["userInteractionCount"]
-        except (KeyError, TypeError):
-            post_details["likes"] = None
-        try:
-            post_details["comments"] = info["commentCount"]
-        except (KeyError, TypeError):
-            post_details["comments"] = None
-        try:
-            post_details["description"] = info["description"]
-        except (KeyError, TypeError):
-            post_details["description"] = None
+        return info
 
-        return post_details
+    @property
+    def type_of_post(self) -> str:
+        """ Type of the Post"""
+        return self.post_details["__typename"]
+
+    @property
+    def display_url(self) -> str:
+        """ Display url of the Image/Video """
+        return self.post_details["display_url"]
+
+    @property
+    def upload_time(self) -> datetime:
+        """ Upload Datetime of the Post """
+        return datetime.fromtimestamp(self.post_details["taken_at_timestamp"])
 
     @property
     def number_of_likes(self) -> int:
         """ No.of Like is given post """
-        return int(self.post_details["likes"])
+        return int(self.post_details["edge_media_preview_like"]["count"])
 
     @property
     def number_of_comments(self) -> int:
         """ No.of Comments is given post """
-        return int(self.post_details["comments"])
+        return int(self.post_details["edge_media_to_parent_comment"]["count"])
 
     @property
     def author(self) -> str:
         """ Author of the Post """
-        return self.post_details["author"]
+        return self.post_details["owner"]["username"]
 
     @property
     def caption(self) -> str:
         """ Caption of the Post """
-        return self.post_details["caption"]
+        return self.post_details["accessibility_caption"]
 
     @property
-    def description(self) -> str:
-        """ Description of the Post given by Instagram """
-        return self.post_details["description"]
-
-    @property
-    def upload_date(self) -> str:
-        """ Upload date of the Post """
-        return self.post_details["uploaddate"]
+    def post_source(self) -> str:
+        """ Post Image/Video Link """
+        if self.post_details["is_video"]:
+            return self.post_details["video_url"]
+        return self.display_url
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}('{self.post_id}')"

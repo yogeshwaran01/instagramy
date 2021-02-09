@@ -17,12 +17,14 @@
         >>> user.biography
 
 """
+from datetime import datetime
+from collections import namedtuple
 
-from .core.parser import ParseUser
-from .core.cache import Cache
-from .core.requests import get
+from .core.parser import Parser
+from .core.parser import Viewer
 from .core.exceptions import UsernameNotFound
 from .core.exceptions import HTTPError
+from .core.requests import get
 
 
 class InstagramUser:
@@ -35,29 +37,27 @@ class InstagramUser:
     'Built for developers.'
     """
 
-    def __init__(self, username: str, from_cache=True):
+    def __init__(self, username: str, sessionid=None):
 
         self.url = f"https://www.instagram.com/{username}/"
-        if from_cache:
-            cache = Cache("user")
-            if cache.is_exists(username):
-                self.user_data = cache.read_cache(username)
-            else:
-                self.user_data = self.get_json()
-                cache.make_cache(username, self.user_data)
+        self.sessionid = sessionid
+        data = self.get_json()
+        self.user_data = data["entry_data"]["ProfilePage"][0]["graphql"]["user"]
+        if sessionid:
+            self.viewer = Viewer(data=data["config"]["viewer"])
         else:
-            self.user_data = self.get_json()
+            self.viewer = None
 
     def get_json(self) -> dict:
         """
         Return a dict of user information
         """
         try:
-            html = get(self.url)
+            html = get(self.url, sessionid=self.sessionid)
         except HTTPError:
             raise UsernameNotFound(self.url.split("/")[-2])
 
-        parser = ParseUser()
+        parser = Parser()
         parser.feed(html)
         return parser.Data
 
@@ -159,7 +159,23 @@ class InstagramUser:
                 data["display_url"] = i["node"]["display_url"]
             except (KeyError, TypeError):
                 data["display_url"] = None
-            posts_lists.append(data)
+
+            if i["node"]["is_video"]:
+                data["video_url"] = i["node"]["video_url"]
+                data["video_view_count"] = i["node"]["video_view_count"]
+            if i["node"]["is_video"]:
+                data["post_source"] = i["node"]["video_url"]
+            else:
+                data["post_source"] = i["node"]["display_url"]
+
+            try:
+                data["taken_at_timestamp"] = datetime.fromtimestamp(
+                    i["node"]["taken_at_timestamp"]
+                )
+            except (KeyError, TypeError):
+                data["taken_at_timestamp"] = None
+            nt = namedtuple("Post", data.keys())(*data.values())
+            posts_lists.append(nt)
         return posts_lists
 
     @property
@@ -169,6 +185,11 @@ class InstagramUser:
         """
 
         return [i["display_url"] for i in self.posts]
+
+    @property
+    def is_joined_recently(self) -> bool:
+        """ Is user joined recently """
+        return self.user_data["is_joined_recently"]
 
     @property
     def other_info(self) -> dict:
@@ -184,7 +205,58 @@ class InstagramUser:
             "has_clips": self.user_data["has_clips"],
             "has_guides": self.user_data["has_guides"],
             "has_channel": self.user_data["has_channel"],
+            "highlight_reel_count": self.user_data["highlight_reel_count"],
         }
+
+    @property
+    def follows_viewer(self) -> bool:
+        """ Is user follows the Viewer """
+        return self.user_data["follows_viewer"]
+
+    @property
+    def has_blocked_viewer(self) -> bool:
+        """ Is user blocked the Viewer """
+        return self.user_data["has_blocked_viewer"]
+
+    @property
+    def no_of_mutual_follower(self) -> bool:
+        """ No of Mutual Followers """
+        return self.user_data["edge_mutual_followed_by"]["count"]
+
+    @property
+    def requested_by_viewer(self) -> bool:
+        """ Is viewer requested to follow user """
+        return self.user_data["requested_by_viewer"]
+
+    @property
+    def is_blocked_by_viewer(self) -> bool:
+        """ Is Viewer blocked the User """
+        return self.user_data["blocked_by_viewer"]
+
+    @property
+    def restricted_by_viewer(self) -> bool:
+        """ Is Viewer restricted the User """
+        return self.user_data["restricted_by_viewer"]
+
+    @property
+    def has_country_block(self) -> bool:
+        """ Is country blocked the User """
+        return self.user_data["country_block"]
+
+    @property
+    def followed_by_viewer(self) -> bool:
+        """ Is Viewer Follows the User """
+        return self.user_data["followed_by_viewer"]
+
+    @property
+    def has_requested_viewer(self) -> bool:
+        """ Is User requested the Viewer """
+        return self.user_data["has_requested_viewer"]
+
+    @property
+    def connected_fb_page(self) -> bool:
+        """ Connected Facebook page of User """
+        return self.user_data["connected_fb_page"]
 
     def __str__(self) -> str:
         return f"{self.fullname} ({self.username}) -> {self.biography}"
