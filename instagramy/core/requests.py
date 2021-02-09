@@ -10,7 +10,7 @@ from .user_agent import user_agents
 
 def get(url: str, sessionid=None) -> Any:
     """
-    Function send the HTTP requests to Instagram and 
+    Function send the HTTP requests to Instagram and
     Login into Instagram with session id
     and return the Html Content
     """
