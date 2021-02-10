@@ -1,9 +1,12 @@
+""" Plugins for Analyze Instagram """
+
 from instagramy.InstagramUser import InstagramUser
 from instagramy.InstagramHashTag import InstagramHashTag
 
 
 def analyze_users_popularity(usernames: list, sessionid: str) -> dict:
     """ Functions return the required data to Analze Instagram users """
+    
     followers = []
     following = []
     posts = []

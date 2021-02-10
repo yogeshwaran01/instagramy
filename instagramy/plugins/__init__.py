@@ -1,1 +1,1 @@
-# File for to make it as a Python Package
+""" Various Plugins for instagramy """
