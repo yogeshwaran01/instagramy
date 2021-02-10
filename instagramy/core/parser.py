@@ -1,4 +1,4 @@
-""" Html Parsers for various Instagram pages """
+""" Html Parser for various Instagram """
 
 import json
 from html.parser import HTMLParser
@@ -11,7 +11,7 @@ class Parser(HTMLParser):
 
     """
     Class Parse the Static Html of the Instagram
-    User website and return the required Data as
+    website and return the required Data as
     Python Dict
 
     This Class Inherits html.parser.HtmlParser

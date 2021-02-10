@@ -1,9 +1,8 @@
 """ Wrapper for urllib.request """
 
-from typing import Any
 import random
-from urllib.request import Request
-from urllib.request import urlopen
+from typing import Any
+from urllib.request import Request, urlopen
 
 from .user_agent import user_agents
 
