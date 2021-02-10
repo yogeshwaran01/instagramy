@@ -22,6 +22,7 @@ from collections import namedtuple
 from .core.parser import Parser
 from .core.parser import Viewer
 from .core.exceptions import HashTagNotFound
+from .core.exceptions import RedirectionError
 from .core.exceptions import HTTPError
 from .core.requests import get
 
@@ -39,7 +40,10 @@ class InstagramHashTag:
         self.url = f"https://www.instagram.com/explore/tags/{tag}/"
         self.sessionid = sessionid
         data = self.get_json()
-        self.tag_data = data["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
+        try:
+            self.tag_data = data["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
+        except KeyError:
+            raise RedirectionError
         if sessionid:
             self.viewer = Viewer(data=data["config"]["viewer"])
         else:

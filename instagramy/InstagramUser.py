@@ -23,6 +23,7 @@ from collections import namedtuple
 from .core.parser import Parser
 from .core.parser import Viewer
 from .core.exceptions import UsernameNotFound
+from .core.exceptions import RedirectionError
 from .core.exceptions import HTTPError
 from .core.requests import get
 
@@ -42,7 +43,10 @@ class InstagramUser:
         self.url = f"https://www.instagram.com/{username}/"
         self.sessionid = sessionid
         data = self.get_json()
-        self.user_data = data["entry_data"]["ProfilePage"][0]["graphql"]["user"]
+        try:
+            self.user_data = data["entry_data"]["ProfilePage"][0]["graphql"]["user"]
+        except KeyError:
+            raise RedirectionError
         if sessionid:
             self.viewer = Viewer(data=data["config"]["viewer"])
         else:

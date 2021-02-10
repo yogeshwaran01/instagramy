@@ -22,6 +22,7 @@ from datetime import datetime
 from .core.parser import Viewer
 from .core.parser import Parser
 from .core.exceptions import PostIdNotFound
+from .core.exceptions import RedirectionError
 from .core.exceptions import HTTPError
 from .core.requests import get
 
@@ -47,9 +48,12 @@ class InstagramPost:
         self.url = f"https://www.instagram.com/p/{post_id}/"
         self.sessionid = sessionid
         data = self.get_json()
-        self.post_details = data["entry_data"]["PostPage"][0]["graphql"][
+        try:
+            self.post_data = data["entry_data"]["PostPage"][0]["graphql"][
             "shortcode_media"
         ]
+        except KeyError:
+            raise RedirectionError
         if sessionid:
             self.viewer = Viewer(data=data["config"]["viewer"])
         else:
@@ -72,43 +76,43 @@ class InstagramPost:
     @property
     def type_of_post(self) -> str:
         """ Type of the Post"""
-        return self.post_details["__typename"]
+        return self.post_data["__typename"]
 
     @property
     def display_url(self) -> str:
         """ Display url of the Image/Video """
-        return self.post_details["display_url"]
+        return self.post_data["display_url"]
 
     @property
     def upload_time(self) -> datetime:
         """ Upload Datetime of the Post """
-        return datetime.fromtimestamp(self.post_details["taken_at_timestamp"])
+        return datetime.fromtimestamp(self.post_data["taken_at_timestamp"])
 
     @property
     def number_of_likes(self) -> int:
         """ No.of Like is given post """
-        return int(self.post_details["edge_media_preview_like"]["count"])
+        return int(self.post_data["edge_media_preview_like"]["count"])
 
     @property
     def number_of_comments(self) -> int:
         """ No.of Comments is given post """
-        return int(self.post_details["edge_media_to_parent_comment"]["count"])
+        return int(self.post_data["edge_media_to_parent_comment"]["count"])
 
     @property
     def author(self) -> str:
         """ Author of the Post """
-        return self.post_details["owner"]["username"]
+        return self.post_data["owner"]["username"]
 
     @property
     def caption(self) -> str:
         """ Caption of the Post """
-        return self.post_details["accessibility_caption"]
+        return self.post_data["accessibility_caption"]
 
     @property
     def post_source(self) -> str:
         """ Post Image/Video Link """
-        if self.post_details["is_video"]:
-            return self.post_details["video_url"]
+        if self.post_data["is_video"]:
+            return self.post_data["video_url"]
         return self.display_url
 
     def __repr__(self) -> str:
