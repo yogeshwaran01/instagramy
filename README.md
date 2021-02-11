@@ -27,9 +27,10 @@
 </hr>
 
 <p align="center">
-Scrape Instagram Users Informations, Posts Details, and Hashtags details. This Package scrapes the user's recent posts with some information like likes, comments, captions and etc. No external dependencies.
+Scrape Instagram Users Information, Posts Details, and Hashtags details. This Package scrapes the user's recent posts with some information like likes, comments, captions and etc. No external dependencies.
 </p>
 
+<!-- Downloading Guides -->
 ## Download
 
 ### Installation
@@ -47,6 +48,8 @@ pip install instagramy
 pip install instagramy --upgrade
 
 ```
+
+<!-- Usage -->
 ## Usage
 
 ### Getting Session Id of Instrgram
@@ -82,6 +85,8 @@ True
 
 >>> user.biography
 'Google unfiltered—sometimes with filters.'
+
+>>> user.user_data # More data about user as dict
 ```
 
 ### Instagram Hashtag details
@@ -105,6 +110,8 @@ $ export SESSION_ID="38566737751%3Ah7JpgePGAoLxJe%er40q"
 
 >>> tag.number_of_posts
 9556876
+
+>>> tag.tag_data # More data about hashtag as dict
 ```
 
 ### Instagram Post details
@@ -124,13 +131,15 @@ Class `InstagramPost`  scrape some of the information related to the particular 
 >>> post.number_of_likes
 1439
 
+>>> post.post_data # More data about post as dict
+
 ```
 
 ### Plugins
 
 Instagramy has some plugins for ease
 
-#### Data Analyzing Plugins
+#### Plugins for Data Analyzing
 
 - analyze_users_popularity
 - analyze_hashtags
@@ -159,7 +168,7 @@ Instagramy has some plugins for ease
 6               kxipofficial    1884241         67   7496
 ```
 
-#### Downloading plugins
+#### Plugins for Downloading Posts
 
 - download_hashtags_posts
 - download_post
