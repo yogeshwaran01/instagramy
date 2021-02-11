@@ -16,12 +16,15 @@
         >>> tag.top_posts
 
 """
+from datetime import datetime
+from collections import namedtuple
 
-from .core.parser import ParseHashTag
-from .core.cache import Cache
-from .core.requests import get
+from .core.parser import Parser
+from .core.parser import Viewer
 from .core.exceptions import HashTagNotFound
+from .core.exceptions import RedirectionError
 from .core.exceptions import HTTPError
+from .core.requests import get
 
 
 class InstagramHashTag:
@@ -33,27 +36,28 @@ class InstagramHashTag:
     >>> instagram_user.posts_display_urls
     """
 
-    def __init__(self, tag: str, from_cache=True):
+    def __init__(self, tag: str, sessionid=None):
         self.url = f"https://www.instagram.com/explore/tags/{tag}/"
-        if from_cache:
-            cache = Cache("tag")
-            if cache.is_exists(tag):
-                self.tag_data = cache.read_cache(tag)
-            else:
-                self.tag_data = self.get_json()
-                cache.make_cache(tag, self.tag_data)
+        self.sessionid = sessionid
+        data = self.get_json()
+        try:
+            self.tag_data = data["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
+        except KeyError:
+            raise RedirectionError
+        if sessionid:
+            self.viewer = Viewer(data=data["config"]["viewer"])
         else:
-            self.tag_data = self.get_json()
+            self.viewer = None
 
     def get_json(self) -> dict:
         """
         Return a dict of Hashtag information
         """
         try:
-            html = get(self.url)
+            html = get(self.url, sessionid=self.sessionid)
         except HTTPError:
             raise HashTagNotFound(self.url.split("/")[-2])
-        parser = ParseHashTag()
+        parser = Parser()
         parser.feed(html)
         return parser.Data
 
@@ -95,9 +99,11 @@ class InstagramHashTag:
             except (KeyError, TypeError):
                 data["is_video"] = None
             try:
-                data["timestamp"] = node["node"]["taken_at_timestamp"]
+                data["upload_time"] = datetime.fromtimestamp(
+                    node["node"]["taken_at_timestamp"]
+                )
             except (KeyError, TypeError):
-                data["timestamp"] = None
+                data["upload_time"] = None
             try:
                 data["caption"] = node["node"]["accessibility_caption"]
             except (KeyError, TypeError):
@@ -116,7 +122,8 @@ class InstagramHashTag:
                 data["display_url"] = node["node"]["display_url"]
             except (KeyError, TypeError):
                 data["display_url"] = None
-            post_lists.append(data)
+            nt = namedtuple("Post", data.keys())(*data.values())
+            post_lists.append(nt)
         return post_lists
 
     @property

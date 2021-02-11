@@ -8,3 +8,7 @@ test/__pycache__
 core/__pycache__
 instagramy/core/__pycache__
 .instagramy_cache
+instagramy/plugins/__pycache__
+.old
+methos.md
+instagramy/plugins/__pycache__

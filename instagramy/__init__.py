@@ -12,12 +12,12 @@
 __package__ = "instagramy"
 __description__ = "A python package for Instagram. It scarpe the Instagram contents."
 __url__ = "https://github.com/yogeshwaran01/instagramy"
-__version__ = "4.1"
+__version__ = "4.2"
 __author__ = "YOGESHWARAN R <yogeshin247@gmail.com>"
 __license__ = "MIT License"
 __copyright__ = "Copyright 2021 Yogeshwaran R"
 
-__all__ = ['InstagramUser', 'InstagramHashTag', 'InstagramPost']
+__all__ = ["InstagramUser", "InstagramHashTag", "InstagramPost"]
 
 from .InstagramUser import InstagramUser
 from .InstagramPost import InstagramPost
