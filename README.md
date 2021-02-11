@@ -33,6 +33,16 @@
 Scrape Instagram Users Information, Posts Details, and Hashtags details. This Package scrapes the user's recent posts with some information like likes, comments, captions and etc. No external dependencies.
 </p>
 
+## Features
+
+- It scrapes most of the data of [Instagram user](#Instagram-User-details), [hastags](#Instagram-Hashtag-details) and [Posts](#Instagram-Post-details)
+- You can use this package [with login](#Sample-Usage) or [without login](#✏️-Important-Notes)
+- Download [Instagram post](#Plugins-for-Downloading-Posts) and [User profile picture](#Plugins-for-Downloading-Posts)
+- Have some [plugins](#Plugins) for Data analysis
+- No External dependencies
+- Lightweight
+
+
 <!-- Downloading Guides -->
 ## Download
 
@@ -53,7 +63,7 @@ pip install instagramy --upgrade
 ```
 
 <!-- Usage -->
-## Usage
+## Sample Usage
 
 ### Getting Session Id of Instrgram
 
@@ -189,6 +199,20 @@ Instagramy has some plugins for ease
 >>> download_post(id="ipadpograffiti", sessionid=session_id, filepath='post.mp4')
 
 >>> download_hashtags_posts(tag="tamil", session_id=session_id, count=2)
+```
+
+### Use Without Login
+
+You can use this package without login. Sessionid is not required but it may rise error after four to five requests.
+
+```python
+>>> from instagramy import *
+
+>>> user = InstagramUser('google')
+>>> user.fullname
+'Google'
+>>> tag = InstagramHashTag('python')
+>>> tag.tag_data
 ```
 
 ## ✏️ Important Notes
