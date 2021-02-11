@@ -3,10 +3,12 @@
 from instagramy.InstagramUser import InstagramUser
 from instagramy.InstagramHashTag import InstagramHashTag
 
+__all__ = ["analyze_users_popularity", "analyze_hashtags", "analyze_user_recent_posts"]
+
 
 def analyze_users_popularity(usernames: list, sessionid: str) -> dict:
     """ Functions return the required data to Analze Instagram users """
-    
+
     followers = []
     following = []
     posts = []

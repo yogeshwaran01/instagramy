@@ -50,8 +50,8 @@ class InstagramPost:
         data = self.get_json()
         try:
             self.post_data = data["entry_data"]["PostPage"][0]["graphql"][
-            "shortcode_media"
-        ]
+                "shortcode_media"
+            ]
         except KeyError:
             raise RedirectionError
         if sessionid:

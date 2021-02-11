@@ -7,6 +7,8 @@ from instagramy.InstagramUser import InstagramUser
 from instagramy.InstagramPost import InstagramPost
 from instagramy.InstagramHashTag import InstagramHashTag
 
+__all__ = ["download_profile_pic", "download_post", "download_hashtags_posts"]
+
 
 def download_profile_pic(username: str, sessionid=None, filepath=None) -> tuple:
     """ Download Instagram User Profile Picture """
