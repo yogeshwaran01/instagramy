@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="instagramy",
-    version="4.1",
+    version="4.2",
     license='MIT',
     author="Yogeshwaran R",
     author_email="yogeshin247@gmail.com",
