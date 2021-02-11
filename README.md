@@ -8,18 +8,21 @@
 
 <p align="center">
     <a href="https://pypi.org/project/instagramy/">
-    <img alt="PyPi" src="https://img.shields.io/pypi/v/instagramy.svg"/>
+    <img alt="PyPi" src="https://img.shields.io/pypi/v/instagramy?color=green"/>
     </a>
     <a href="https://pepy.tech/project/instagramy">
-    <img alt="Downloads" src="https://pepy.tech/badge/instagramy"/>
+    <img alt="Downloads" src="https://static.pepy.tech/personalized-badge/instagramy?period=month&units=international_system&left_color=grey&right_color=green&left_text=Downloads"/>
     </a>
+    <a href="https://github.com/yogeshwaran01/instagramy/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/yogeshwaran01/instagramy?color=green"></a>
+    <a href="https://github.com/yogeshwaran01/instagramy/network">
+    <img alt="GitHub forks" src="https://img.shields.io/github/forks/yogeshwaran01/instagramy?color=green"></a>
     <a href="https://github.com/yogeshwaran01/instagramy/blob/master/LICENSE.txt">
-    <img alt="GitHub license" src="https://img.shields.io/github/license/yogeshwaran01/instagramy?color=blue"/>
+    <img alt="GitHub license" src="https://img.shields.io/github/license/yogeshwaran01/instagramy?color=green"/>
     </a>
     <a href="https://github.com/psf/black">
-    <img alt="Code style" src="https://img.shields.io/badge/codestyle-Black-blue"/>
+    <img alt="Code style" src="https://img.shields.io/badge/codestyle-Black-green"/>
     </a>
-    <img alt="GitHub Repo size" src="https://img.shields.io/github/repo-size/yogeshwaran01/instagramy"/>
+    <img alt="GitHub Repo size" src="https://img.shields.io/github/repo-size/yogeshwaran01/instagramy?color=green"/>
     <img alt="Actions" src="https://github.com/yogeshwaran01/instagramy/workflows/Python%20package/badge.svg"/>
     <img alt="Actions" src="https://github.com/yogeshwaran01/instagramy/workflows/Upload%20Python%20Package/badge.svg"/>
 </p>
