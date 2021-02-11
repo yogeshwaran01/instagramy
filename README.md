@@ -36,7 +36,7 @@ Scrape Instagram Users Information, Posts Details, and Hashtags details. This Pa
 ## Features
 
 - It scrapes most of the data of [Instagram user](#Instagram-User-details), [hastags](#Instagram-Hashtag-details) and [Posts](#Instagram-Post-details)
-- You can use this package [with login](#Sample-Usage) or [without login](#✏️-Important-Notes)
+- You can use this package [with login](#Sample-Usage) or [without login](#Use-Without-Login)
 - Download [Instagram post](#Plugins-for-Downloading-Posts) and [User profile picture](#Plugins-for-Downloading-Posts)
 - Have some [plugins](#Plugins) for Data analysis
 - No External dependencies
