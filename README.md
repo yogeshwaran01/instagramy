@@ -33,6 +33,8 @@
 Scrape Instagram Users Information, Posts Details, and Hashtags details. This Package scrapes the user's recent posts with some information like likes, comments, captions and etc. No external dependencies.
 </p>
 
+<!-- Features -->
+
 ## Features
 
 - It scrapes most of the data of [Instagram user](#Instagram-User-details), [hastags](#Instagram-Hashtag-details) and [Posts](#Instagram-Post-details)
@@ -42,8 +44,8 @@ Scrape Instagram Users Information, Posts Details, and Hashtags details. This Pa
 - No External dependencies
 - Lightweight
 
-
 <!-- Downloading Guides -->
+
 ## Download
 
 ### Installation
@@ -63,6 +65,7 @@ pip install instagramy --upgrade
 ```
 
 <!-- Usage -->
+
 ## Sample Usage
 
 ### Getting Session Id of Instrgram
@@ -72,19 +75,16 @@ For Login into Instagram via instagramy session id is required. No username or p
 1. Login into Instagram in default webbrowser
 2. Move to Developer option
 3. Copy the sessionid
-    - Move to storage and then to cookies and copy the sessionid (Firefox)
-    - Move to Application and then to storage and then to cookies and copy the sessionid (Chrome)
+   - Move to storage and then to cookies and copy the sessionid (Firefox)
+   - Move to Application and then to storage and then to cookies and copy the sessionid (Chrome)
 
 **Note:** Don't use your session id from other machine's browser. It must be in current local machine.
 
 <img src="./samples/sessionid.gif" width=100% height=100%>
 
-
-
 ### Instagram User details
 
 Class `InstagramUser` scrape some of the information related to the user of the Instagram
-
 
 ```python
 >>> from instagramy import InstagramUser
@@ -104,9 +104,9 @@ True
 
 ### Instagram Hashtag details
 
-Class `InstagramHashTag`  scrape some of the information related to the hash-tag of the Instagram
+Class `InstagramHashTag` scrape some of the information related to the hash-tag of the Instagram
 
-you can set your sessionid as env variable
+you can also set your sessionid as env variable
 
 ```bash
 $ export SESSION_ID="38566737751%3Ah7JpgePGAoLxJe%er40q"
@@ -129,7 +129,7 @@ $ export SESSION_ID="38566737751%3Ah7JpgePGAoLxJe%er40q"
 
 ### Instagram Post details
 
-Class `InstagramPost`  scrape some of the information related to the particular post of Instagram. It takes the post id as the parameter. You can get the post id from the URL of the Instagram posts from the property of `InstagramUser.posts`. or `InstagramHagTag.top_posts`
+Class `InstagramPost` scrape some of the information related to the particular post of Instagram. It takes the post id as the parameter. You can get the post id from the URL of the Instagram posts from the property of `InstagramUser.posts`. or `InstagramHagTag.top_posts`
 
 ```python
 >>> from instagramy import InstagramPost
@@ -164,9 +164,9 @@ Instagramy has some plugins for ease
 
 >>> session_id = "38566737751%3Ah7JpgePGAoLxJe%334"
 
->>> teams = ["chennaiipl", "mumbaiindians", 
-        "royalchallengersbangalore", "kkriders", 
-        "delhicapitals", "sunrisershyd",  
+>>> teams = ["chennaiipl", "mumbaiindians",
+        "royalchallengersbangalore", "kkriders",
+        "delhicapitals", "sunrisershyd",
         "kxipofficial"]
 >>> data = analyze_users_popularity(teams, session_id)
 >>> pd.Dataframe(data)
@@ -203,7 +203,7 @@ Instagramy has some plugins for ease
 
 ### Use Without Login
 
-You can use this package without login. Sessionid is not required but it may rise error after four to five requests.
+You can use this package without login. Sessionid is not required but it may rise `RedirectionError` error after four to five requests.
 
 ```python
 >>> from instagramy import *
@@ -215,14 +215,26 @@ You can use this package without login. Sessionid is not required but it may ris
 >>> tag.tag_data
 ```
 
+<!-- Conclution -->
+
 ## ✏️ Important Notes
 
-- You can use this package without sessionid (Login). But it may `RedirectionError` after four to five requests. 
-- class `Viewer` provide the data about currently logged in user
-- Don't provide wrong session_id
-- `InstagramUser.user_data`, `InstagramPost.post_data` and `InstagramHashtag.tag_data` which is python `dict` has more and more data other than defined as `Properties`
+- You can use this package without sessionid (Login). But it may `RedirectionError` after four to five requests.
+- class `Viewer` provide the data about currently logged in user.
+- Check for session id frequently, It may be changed by Instagram
+- If code execution is never gets completed, check and change your session id and try again.
+- Don't provide the wrong session_id.
+- `InstagramUser.user_data`, `InstagramPost.post_data` and `InstagramHashtag.tag_data` which is python `dict` has more and more data other than defined as `Properties`.
 - This Package does not work in Remote PC or any Online python Interpreter.
 - This Package does not scrap all the posts from an account, the limit of the post only 12 (For non-private account)
-- This Package not scrap all the posts of given hash-tag it only scrapes the top 60 - 70 posts.
+- This Package not scrap all the posts of given hash-tag it only scrapes the top 60 - 72 posts.
+
+## License
+
+[MIT License](https://github.com/yogeshwaran01/instagramy/blob/master/LICENSE.txt)
+
+## Contributing
+
+Contributions are Welcome. Feel free to report bugs in [issue](https://github.com/yogeshwaran01/instagramy/issues) and fix some bugs by creating [pull requests](https://github.com/yogeshwaran01/instagramy/pulls). Comments, Suggestions, Improvements and Enhancements are always welcome.
 
 <h3 align="center"> Made with Python ❤️ </h3>
