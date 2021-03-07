@@ -70,7 +70,7 @@ pip install instagramy --upgrade
 
 ### Getting Session Id of Instrgram
 
-For Login into Instagram via instagramy session id is required. No username or password is Needed. You must be login in same machine to get session id
+For Login into Instagram via instagramy session id is required. No username or password is Needed. You must be login into Instagram via Browser to get session id
 
 1. Login into Instagram in default webbrowser
 2. Move to Developer option
@@ -78,7 +78,7 @@ For Login into Instagram via instagramy session id is required. No username or p
    - Move to storage and then to cookies and copy the sessionid (Firefox)
    - Move to Application and then to storage and then to cookies and copy the sessionid (Chrome)
 
-**Note:** Don't use your session id from other machine's browser. It must be in current local machine.
+**Note:** Check for session id frequently, It may be changed by Instagram
 
 <img src="./samples/sessionid.gif" width=100% height=100%>
 
@@ -225,7 +225,6 @@ You can use this package without login. Sessionid is not required but it may ris
 - If code execution is never gets completed, check and change your session id and try again.
 - Don't provide the wrong session_id.
 - `InstagramUser.user_data`, `InstagramPost.post_data` and `InstagramHashtag.tag_data` which is python `dict` has more and more data other than defined as `Properties`.
-- This Package does not work in Remote PC or any Online python Interpreter.
 - This Package does not scrap all the posts from an account, the limit of the post only 12 (For non-private account)
 - This Package not scrap all the posts of given hash-tag it only scrapes the top 60 - 72 posts.
 
