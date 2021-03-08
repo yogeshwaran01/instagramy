@@ -215,6 +215,10 @@ You can use this package without login. Sessionid is not required but it may ris
 >>> tag.tag_data
 ```
 
+## Sample Scripts
+
+You can get some Sample scripts [Here](https://yogeshwaran01.herokuapp.com/post/Instagramy-Python-Package-for-Instagram)
+
 <!-- Conclution -->
 
 ## ✏️ Important Notes
