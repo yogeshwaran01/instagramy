@@ -2,7 +2,7 @@
 
 <h1 align="center"> Instagramy </h1>
 
-<p align="center">Python Package for Instagram Users, Posts and Hashtag Data</p>
+<p align="center">Python Package for Instagram Without Any external dependencies</p>
 
 <!-- Badges -->
 
@@ -37,13 +37,13 @@ Scrape Instagram Users Information, Posts Details, and Hashtags details. This Pa
 
 ## Features
 
-
 - It scrapes most of the data of the Instagram user, Hashtags and Posts
 - You can use this package with login or without login
 - Download Instagram post and User profile picture
 - Have some plugins for Data analysis
 - No External dependencies
 - Lightweight
+- Easy to Use
 
 <!-- Downloading Guides -->
 
@@ -103,6 +103,39 @@ True
 >>> user.user_data # More data about user as dict
 ```
 
+<details><summary>Show all Properties</summary>
+<p>
+
+- biography
+- connected_fb_page
+- followed_by_viewer
+- follows_viewer
+- fullname
+- has_blocked_viewer
+- has_country_block
+- has_requested_viewer
+- is_blocked_by_viewer
+- is_joined_recently
+- is_private
+- is_verified
+- no_of_mutual_follower
+- number_of_followers
+- number_of_followings
+- number_of_posts
+- other_info
+- posts
+- posts_display_urls
+- profile_picture_url
+- requested_by_viewer
+- restricted_by_viewer
+- username
+- website
+
+</p>
+</details>
+
+`InstagramUser.user_data` has more data other than defined as `Properties`
+
 ### Instagram Hashtag details
 
 Class `InstagramHashTag` scrape some of the information related to the hash-tag of the Instagram
@@ -112,7 +145,6 @@ you can also set your sessionid as env variable
 ```bash
 $ export SESSION_ID="38566737751%3Ah7JpgePGAoLxJe%er40q"
 ```
-
 
 ```python
 >>> import os
@@ -129,12 +161,25 @@ $ export SESSION_ID="38566737751%3Ah7JpgePGAoLxJe%er40q"
 >>> tag.tag_data # More data about hashtag as dict
 ```
 
+<details><summary>Show all Properties</summary>
+<p>
+
+- number_of_posts
+- posts_display_urls
+- profile_pic_url
+- tagname
+- top_posts
+
+</p>
+</details>
+
+`InstagramHashTag.tag_data` has more data other than defined as `Properties`
+
 ### Instagram Post details
 
 Class `InstagramPost` scrape some of the information related to the particular post of Instagram. It takes the post id as the parameter. You can get the post id from the URL of the Instagram posts from the property of `InstagramUser.posts`. or `InstagramHagTag.top_posts`
 
 ```python
-
 >>> from instagramy import InstagramPost
 
 >>> session_id = "38566737751%3Ah7JpgePGAoLxJe%334"
@@ -148,7 +193,26 @@ Class `InstagramPost` scrape some of the information related to the particular p
 1439
 
 >>> post.post_data # More data about post as dict
+
 ```
+
+<details><summary>Show all Properties</summary>
+<p>
+
+- author
+- caption
+- display_url
+- get_json
+- number_of_comments
+- number_of_likes
+- post_source
+- type_of_post
+- upload_time
+
+</p>
+</details>
+
+`InstagramPost.post_data` has more data other than defined as `Properties`
 
 ### Plugins
 
@@ -166,9 +230,9 @@ Instagramy has some plugins for ease
 
 >>> session_id = "38566737751%3Ah7JpgePGAoLxJe%334"
 
->>> teams = ["chennaiipl", "mumbaiindians", 
-        "royalchallengersbangalore", "kkriders", 
-        "delhicapitals", "sunrisershyd",  
+>>> teams = ["chennaiipl", "mumbaiindians",
+        "royalchallengersbangalore", "kkriders",
+        "delhicapitals", "sunrisershyd",
         "kxipofficial"]
 >>> data = analyze_users_popularity(teams, session_id)
 >>> pd.Dataframe(data)
@@ -201,7 +265,6 @@ Instagramy has some plugins for ease
 >>> download_post(id="ipadpograffiti", sessionid=session_id, filepath='post.mp4')
 
 >>> download_hashtags_posts(tag="tamil", session_id=session_id, count=2)
-
 ```
 
 ### Use Without Login
@@ -217,8 +280,6 @@ You can use this package without login. Sessionid is not required but it may ris
 >>> tag = InstagramHashTag('python')
 >>> tag.tag_data
 ```
-
-<!-- Sample Script with Instagramy -->
 
 ## Sample Scripts
 
@@ -332,8 +393,7 @@ fig.tight_layout()
 plt.show()
 ```
 
-Lets run the script, 
-
+Lets run the script,
 
 ```bash
 python3 instagram_viz.py accounts.txt
@@ -362,8 +422,8 @@ You can do more stuff with this Package
 
 [MIT License](https://github.com/yogeshwaran01/instagramy/blob/master/LICENSE.txt)
 
-## Contributing
+## Contributions
 
-Contributions are Welcome. Feel free to report bugs in [issue](https://github.com/yogeshwaran01/instagramy/issues) and fix some bugs by creating [pull requests](https://github.com/yogeshwaran01/instagramy/pulls). Comments, Suggestions, Improvements and Enhancements are always welcome.
+Contributions are Welcome. Feel free to report bugs in [issue](https://github.com/yogeshwaran01/instagramy/issues) and fix some bugs by creating [pull requests](https://github.com/yogeshwaran01/instagramy/pulls). Comments, Suggestions, Improvements and Enhancements are always welcome. Let disscuss about it [Here](https://github.com/yogeshwaran01/instagramy/discussions/9).
 
 <h3 align="center"> Made with Python ❤️ </h3>
