@@ -115,6 +115,14 @@ class InstagramPost:
             return self.post_data["video_url"]
         return self.display_url
 
+    @property
+    def text(self) -> str:
+        try:
+            text = self.post_data["edge_media_to_caption"]["edges"]["node"]["text"]
+            return text
+        except (KeyError, IndexError):
+            return None
+
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}('{self.post_id}')"
 
