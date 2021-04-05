@@ -206,6 +206,7 @@ Class `InstagramPost` scrape some of the information related to the particular p
 - number_of_comments
 - number_of_likes
 - post_source
+- text
 - type_of_post
 - upload_time
 
