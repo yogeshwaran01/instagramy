@@ -54,24 +54,25 @@ class InstagramPost(PostParser):
         cache = Cache("post")
         if from_cache:
             if cache.is_exists(post_id):
-                data = cache.read_cache(post_id)
+                self.post_data = cache.read_cache(post_id)
             else:
                 data = self.get_json()
                 cache.make_cache(
                     post_id,
                     data["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"],
                 )
+                self.post_data = data["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"]
         else:
             data = self.get_json()
             cache.make_cache(
                 post_id, data["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"]
             )
-        try:
-            self.post_data = data["entry_data"]["PostPage"][0]["graphql"][
-                "shortcode_media"
-            ]
-        except KeyError:
-            raise RedirectionError
+            try:
+                self.post_data = data["entry_data"]["PostPage"][0]["graphql"][
+                    "shortcode_media"
+                ]
+            except KeyError:
+                raise RedirectionError
         if sessionid:
             self.viewer = Viewer(data=data["config"]["viewer"])
         else:
