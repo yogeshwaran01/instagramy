@@ -21,13 +21,15 @@ from datetime import datetime
 
 from .core.parser import Viewer
 from .core.parser import Parser
+from .core.parser import PostParser
 from .core.exceptions import PostIdNotFound
 from .core.exceptions import RedirectionError
 from .core.exceptions import HTTPError
+from .core.cache import Cache
 from .core.requests import get
 
 
-class InstagramPost:
+class InstagramPost(PostParser):
     """
     Class InstagramPost scrape the post information
     by given post id (From url of the post)
@@ -43,11 +45,25 @@ class InstagramPost:
     4629
     """
 
-    def __init__(self, post_id: str, sessionid=None):
+    def __init__(self, post_id: str, sessionid=None, from_cache=False):
         self.post_id = post_id
         self.url = f"https://www.instagram.com/p/{post_id}/"
         self.sessionid = sessionid
-        data = self.get_json()
+        cache = Cache("post")
+        if from_cache:
+            if cache.is_exists(post_id):
+                data = cache.read_cache(post_id)
+            else:
+                data = self.get_json()
+                cache.make_cache(
+                    post_id,
+                    data["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"],
+                )
+        else:
+            data = self.get_json()
+            cache.make_cache(
+                post_id, data["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"]
+            )
         try:
             self.post_data = data["entry_data"]["PostPage"][0]["graphql"][
                 "shortcode_media"
@@ -72,56 +88,6 @@ class InstagramPost:
         parser.feed(html)
         info = parser.Data
         return info
-
-    @property
-    def type_of_post(self) -> str:
-        """ Type of the Post"""
-        return self.post_data["__typename"]
-
-    @property
-    def display_url(self) -> str:
-        """ Display url of the Image/Video """
-        return self.post_data["display_url"]
-
-    @property
-    def upload_time(self) -> datetime:
-        """ Upload Datetime of the Post """
-        return datetime.fromtimestamp(self.post_data["taken_at_timestamp"])
-
-    @property
-    def number_of_likes(self) -> int:
-        """ No.of Like is given post """
-        return int(self.post_data["edge_media_preview_like"]["count"])
-
-    @property
-    def number_of_comments(self) -> int:
-        """ No.of Comments is given post """
-        return int(self.post_data["edge_media_to_parent_comment"]["count"])
-
-    @property
-    def author(self) -> str:
-        """ Author of the Post """
-        return self.post_data["owner"]["username"]
-
-    @property
-    def caption(self) -> str:
-        """ Caption of the Post """
-        return self.post_data["accessibility_caption"]
-
-    @property
-    def post_source(self) -> str:
-        """ Post Image/Video Link """
-        if self.post_data["is_video"]:
-            return self.post_data["video_url"]
-        return self.display_url
-
-    @property
-    def text(self) -> str:
-        try:
-            text = self.post_data["edge_media_to_caption"]["edges"]["node"]["text"]
-            return text
-        except (KeyError, IndexError):
-            return None
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}('{self.post_id}')"
