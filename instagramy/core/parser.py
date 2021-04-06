@@ -1,7 +1,7 @@
 """ Parsers for Instagramy  """
 
 import json
-import datetime
+from datetime import datetime
 from html.parser import HTMLParser
 from collections import namedtuple
 
