@@ -42,6 +42,7 @@ Scrape Instagram Users Information, Posts Details, and Hashtags details. This Pa
 - Download [Instagram post](#Plugins-for-Downloading-Posts) and [User profile picture](#Plugins-for-Downloading-Posts)
 - Have some [plugins](#Plugins) for Data analysis
 - No External dependencies
+- Having [caching Function](#Caching-Feature)
 - Lightweight
 - Easy to Use
 
@@ -81,7 +82,7 @@ For Login into Instagram via instagramy session id is required. No username or p
 
 **Note:** Check for session id frequently, It may be changed by Instagram
 
-<img src="./samples/sessionid.gif" width=100% height=100%>
+<img src="https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/sessionid.gif" width=100% height=100%>
 
 ### Instagram User details
 
@@ -102,6 +103,19 @@ True
 
 >>> user.user_data # More data about user as dict
 ```
+
+If you get the data of the user onetime, instagramy store the data as cache file for avoid the error. you can get the data from cache also. Don't Provide the sessionid.
+
+```python
+>>> from instagramy import InstagramUser
+
+>>> user = InstagramUser('google', from_cache=True)
+
+>>> user.is_verified
+True
+```
+
+It is opt of all classes `InstagramUser`, `InstagramHashTag` and `InstagramPost`.
 
 <details><summary>Show all Properties</summary>
 <p>
@@ -281,6 +295,21 @@ You can use this package without login. Sessionid is not required but it may ris
 >>> tag = InstagramHashTag('python')
 >>> tag.tag_data
 ```
+
+### Caching Feature
+
+from version `4.3`, Added the new feature that is caching the required data. If you get the data of the user onetime, instagramy store the data as cache json file for avoid the error. you can get the data from cache also. Don't need Provide the sessionid. Instead of sessionid add the optional parameter `from_cache=True`.
+
+```python
+>>> from instagramy import InstagramUser
+
+>>> user = InstagramUser('google', from_cache=True)
+
+>>> user.is_verified
+True
+```
+
+It is opt of all classes `InstagramUser`, `InstagramHashTag` and `InstagramPost`.
 
 ## Sample Scripts
 
