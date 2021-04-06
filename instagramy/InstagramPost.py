@@ -9,7 +9,7 @@
     -------------
     ::
 
-        from instagramy.InstagramHashtag import InstagramPost
+        >>> from instagramy.InstagramHashtag import InstagramPost
 
         >>> post = InstagramPost('CGeYX2OA61s')
         >>> post.author
@@ -17,7 +17,6 @@
         >>> post.number_of_comments
 
 """
-from datetime import datetime
 
 from .core.parser import Viewer
 from .core.parser import Parser
@@ -30,11 +29,14 @@ from .core.requests import get
 
 
 class InstagramPost(PostParser):
-    """
-    Class InstagramPost scrape the post information
-    by given post id (From url of the post)
+    r"""
+    Scrape the post information
     `https://www.instagram.com/p/<post_id>/`
     `https://www.instagram.com/p/CGeYX2OA61s/`
+
+    :param post_id: Id of the Instagram post  (From url of the post)
+    :param sessionid (optional): Session id of Instagram which is in browser cookies
+    :param from_cache (optional): Get data from the cache of instagramy not from instagram
 
     >>> post = InstagramPost("CGeYX2OA61s")
     >>> post.author
@@ -76,9 +78,7 @@ class InstagramPost(PostParser):
             self.viewer = None
 
     def get_json(self) -> dict:
-        """
-        Return a dict of Post information
-        """
+        """ Get post information from Instagram """
 
         try:
             html = get(self.url, sessionid=self.sessionid)

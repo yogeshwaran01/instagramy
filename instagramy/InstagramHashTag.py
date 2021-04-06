@@ -9,15 +9,13 @@
     -------------
     ::
 
-        from instagramy.InstagramHashtag import InstagramHashtag
+        >>> from instagramy.InstagramHashtag import InstagramHashtag
 
         >>> tag = InstagramHashtag('python')
         >>> tag.number_of_posts
         >>> tag.top_posts
 
 """
-from datetime import datetime
-from collections import namedtuple
 
 from .core.parser import Parser
 from .core.parser import Viewer
@@ -30,8 +28,13 @@ from .core.requests import get
 
 
 class InstagramHashTag(TagParser):
-    """
-    Class InstagramHashTag scrapes instagram hashtag information
+    r"""
+    Scrapes instagram hashtag information
+
+    :param tag: Name of the Instagram Hashtag
+    :param sessionid (optional): Session id of Instagram which is in browser cookies
+    :param from_cache (optional): Get data from the cache of instagramy not from instagram
+
     >>> hashtag = InstagramHashTag("python")
     >>> hashtag.number_of_posts
     3119668
@@ -65,9 +68,8 @@ class InstagramHashTag(TagParser):
             self.viewer = None
 
     def get_json(self) -> dict:
-        """
-        Return a dict of Hashtag information
-        """
+        """ Get Hashtag information from Instagram """
+
         try:
             html = get(self.url, sessionid=self.sessionid)
         except HTTPError:

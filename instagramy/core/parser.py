@@ -1,4 +1,4 @@
-""" Html Parser for various Instagram """
+""" Parsers for Instagramy  """
 
 import json
 import datetime
@@ -24,7 +24,7 @@ class Parser(HTMLParser):
     def handle_data(self, data):
         if data.startswith("window._sharedData"):
             try:
-                self.Data = json.loads(data[data.find('{"config"') : -1])
+                self.Data = json.loads(data[data.find('{"config"'): -1])
             except (KeyError, json.JSONDecodeError):
                 raise RedirectionError
         else:

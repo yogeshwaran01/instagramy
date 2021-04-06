@@ -9,7 +9,7 @@
     -------------
     ::
 
-        from instagramy.InstagramUser import InstagramUser
+        >>> from instagramy.InstagramUser import InstagramUser
 
         >>> user = InstagramUser('github')
         >>> user.is_verified
@@ -17,8 +17,6 @@
         >>> user.biography
 
 """
-from datetime import datetime
-from collections import namedtuple
 
 from .core.parser import Parser
 from .core.parser import Viewer
@@ -31,8 +29,13 @@ from .core.requests import get
 
 
 class InstagramUser(UserParser):
-    """
-    Class InstagramUser scrapes instagram user information
+    r"""
+    Scrapes instagram user information.
+
+    :param username: Username of the Instagram user
+    :param sessionid (optional): Session id of Instagram which is in browser cookies
+    :param from_cache (optional): Get data from the cache of instagramy not from instagram
+
     >>> instagram_user = InstagramUser("github")
     >>> instagram_user.is_verified
     True
@@ -68,9 +71,8 @@ class InstagramUser(UserParser):
             self.viewer = None
 
     def get_json(self) -> dict:
-        """
-        Return a dict of user information
-        """
+        """ Get user information from Instagram """
+
         try:
             html = get(self.url, sessionid=self.sessionid)
         except HTTPError:
