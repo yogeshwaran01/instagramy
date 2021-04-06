@@ -344,7 +344,7 @@ class PostParser:
     @property
     def text(self) -> str:
         try:
-            text = self.post_data["edge_media_to_caption"]["edges"]["node"]["text"]
+            text = self.post_data["edge_media_to_caption"]["edges"][0]["node"]["text"]
             return text
         except (KeyError, IndexError):
             return None
