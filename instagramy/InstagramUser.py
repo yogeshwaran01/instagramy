@@ -50,21 +50,22 @@ class InstagramUser(UserParser):
         cache = Cache("user")
         if from_cache:
             if cache.is_exists(username):
-                data = cache.read_cache(username)
+                self.user_data = cache.read_cache(username)
             else:
                 data = self.get_json()
                 cache.make_cache(
                     username, data["entry_data"]["ProfilePage"][0]["graphql"]["user"]
                 )
-        else:
+                self.user_data = data["entry_data"]["ProfilePage"][0]["graphql"]["user"]
+        else: 
             data = self.get_json()
             cache.make_cache(
                 username, data["entry_data"]["ProfilePage"][0]["graphql"]["user"]
             )
-        try:
-            self.user_data = data["entry_data"]["ProfilePage"][0]["graphql"]["user"]
-        except KeyError:
-            raise RedirectionError
+            try:
+                self.user_data = data["entry_data"]["ProfilePage"][0]["graphql"]["user"]
+            except KeyError:
+                raise RedirectionError
         if sessionid:
             self.viewer = Viewer(data=data["config"]["viewer"])
         else:
