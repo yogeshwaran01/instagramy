@@ -23,8 +23,9 @@
     <img alt="Code style" src="https://img.shields.io/badge/codestyle-Black-blue"/>
     </a>
     <img alt="GitHub Repo size" src="https://img.shields.io/github/repo-size/yogeshwaran01/instagramy"/>
-    <img alt="Actions" src="https://github.com/yogeshwaran01/instagramy/workflows/Python%20package/badge.svg"/>
-    <img alt="Actions" src="https://github.com/yogeshwaran01/instagramy/workflows/Upload%20Python%20Package/badge.svg"/>
+    <a href="https://github.com/yogeshwaran01/instagramy/actions/workflows/python-publish.yml"><img alt="GitHub Actions" src="https://github.com/yogeshwaran01/instagramy/workflows/Upload%20Python%20Package/badge.svg"></a>
+    <a href="https://github.com/yogeshwaran01/instagramy/actions/workflows/python-package.yml"><img alt="GitHub Actions" src="https://github.com/yogeshwaran01/instagramy/workflows/Python%20package/badge.svg"></a>
+
 </p>
 
 </hr>
