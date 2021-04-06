@@ -47,21 +47,22 @@ class InstagramHashTag(TagParser):
         cache = Cache("tag")
         if from_cache:
             if cache.is_exists(tag):
-                data = cache.read_cache(tag)
+                self.tag_data = cache.read_cache(tag)
             else:
                 data = self.get_json()
                 cache.make_cache(
                     tag, data["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
                 )
+                self.tag_data = data["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
         else:
             data = self.get_json()
             cache.make_cache(
                 tag, data["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
             )
-        try:
-            self.tag_data = data["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
-        except KeyError:
-            raise RedirectionError
+            try:
+                self.tag_data = data["entry_data"]["TagPage"][0]["graphql"]["hashtag"]
+            except KeyError:
+                raise RedirectionError
         if sessionid:
             self.viewer = Viewer(data=data["config"]["viewer"])
         else:
