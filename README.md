@@ -104,7 +104,7 @@ True
 >>> user.user_data # More data about user as dict
 ```
 
-If you get the data of the user onetime, instagramy store the data as cache file for avoid the error. you can get the data from cache also. Don't Provide the sessionid.
+If you get the data of the user onetime, instagramy store the data as cache file for avoid the error. you can get the data from cache also. Don't provide the sessionid.
 
 ```python
 >>> from instagramy import InstagramUser
@@ -298,7 +298,7 @@ You can use this package without login. Sessionid is not required but it may ris
 
 ### Caching Feature
 
-from version `4.3`, Added the new feature that is caching the required data. If you get the data of the user onetime, instagramy store the data as cache json file for avoid the error. you can get the data from cache also. Don't need Provide the sessionid. Instead of sessionid add the optional parameter `from_cache=True`.
+from version `4.3`, Added the new feature that is caching the required data. If you get the data of the user onetime, instagramy store the data as cache json file for avoid the error. you can get the data from cache also. Don't need to provide the sessionid. Instead of sessionid add the optional parameter `from_cache=True`.
 
 ```python
 >>> from instagramy import InstagramUser
