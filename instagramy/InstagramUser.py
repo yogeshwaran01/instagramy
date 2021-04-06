@@ -67,7 +67,10 @@ class InstagramUser(UserParser):
             except KeyError:
                 raise RedirectionError
         if sessionid:
-            self.viewer = Viewer(data=data["config"]["viewer"])
+            try:
+                self.viewer = Viewer(data=data["config"]["viewer"])
+            except UnboundLocalError:
+                self.viewer = None
         else:
             self.viewer = None
 
