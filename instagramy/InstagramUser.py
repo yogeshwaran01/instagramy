@@ -57,7 +57,7 @@ class InstagramUser(UserParser):
                     username, data["entry_data"]["ProfilePage"][0]["graphql"]["user"]
                 )
                 self.user_data = data["entry_data"]["ProfilePage"][0]["graphql"]["user"]
-        else: 
+        else:
             data = self.get_json()
             cache.make_cache(
                 username, data["entry_data"]["ProfilePage"][0]["graphql"]["user"]
