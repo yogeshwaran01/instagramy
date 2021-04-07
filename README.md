@@ -312,6 +312,23 @@ True
 
 It is opt of all classes `InstagramUser`, `InstagramHashTag` and `InstagramPost`.
 
+Clear all Caches created by instagramy in current dir by
+
+```python
+>>> from instagramy.core.cache import clear_caches
+
+>>> clear_caches() # clear all caches of instagramy
+
+```
+
+List of all Cache files created by instagramy in current dir
+
+```python
+>>> from instagramy import list_caches
+
+>>> list_caches() # list all caches of instagramy 
+```
+
 ## Sample Scripts
 
 You can get some Sample scripts [Here](https://yogeshwaran01.herokuapp.com/post/Instagramy-Python-Package-for-Instagram)
