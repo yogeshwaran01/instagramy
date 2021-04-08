@@ -1,6 +1,7 @@
 <!-- headings -->
 
 <h1 align="center"> Instagramy </h1>
+<p align="center"> <img alt="Instagramy Logo" src="https://fun-web-projects.herokuapp.com/image/_q5ukAE4Vww"/> </p>
 
 <p align="center">Python Package for Instagram Without Any external dependencies</p>
 
