@@ -32,7 +32,7 @@ class PostIdNotFound(BaseException):
 
 
 class LocationNotFound(BaseException):
-    """ Raise if Post id not found in Instagram """
+    """ Raise if Location not found in Instagram """
 
     def __str__(self):
         return f"InstargramLocation('{self.name}')"
