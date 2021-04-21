@@ -17,8 +17,9 @@ __author__ = "YOGESHWARAN R <yogeshin247@gmail.com>"
 __license__ = "MIT License"
 __copyright__ = "Copyright 2021 Yogeshwaran R"
 
-__all__ = ["InstagramUser", "InstagramHashTag", "InstagramPost"]
+__all__ = ["InstagramUser", "InstagramHashTag", "InstagramPost", "InstagramLocation"]
 
 from .InstagramUser import InstagramUser
 from .InstagramPost import InstagramPost
 from .InstagramHashTag import InstagramHashTag
+from .InstagramLocation import InstagramLocation
