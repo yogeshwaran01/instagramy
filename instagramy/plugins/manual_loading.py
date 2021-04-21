@@ -33,6 +33,7 @@
 from instagramy.core.parser import UserParser
 from instagramy.core.parser import TagParser
 from instagramy.core.parser import PostParser
+from instagramy.core.parser import LocationParser
 
 
 class InstagramUser(UserParser):
@@ -66,3 +67,14 @@ class InstagramHashTag(TagParser):
 
     def __init__(self, data: dict):
         self.tag_data = data
+
+
+class InstargramLocation(LocationParser):
+    r"""
+    Parse the data of location from manual loading
+
+    :param data: user_data from `instagramy.InstagramHashTag.tag_data`
+    """
+
+    def __init__(self, data: dict):
+        self.location_data = data
