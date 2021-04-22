@@ -32,14 +32,14 @@
 </hr>
 
 <p align="center">
-Scrape Instagram Users Information, Posts Details, and Hashtags details. This Package scrapes the user's recent posts with some information like likes, comments, captions and etc. No external dependencies.
+Scrape Instagram Users Information, Posts data, Hashtags and Locations data. This Package scrapes the user's recent posts with some information like likes, comments, captions and etc. No external dependencies.
 </p>
 
 <!-- Features -->
 
 ## Features
 
-- It scrapes most of the data of [Instagram user](#Instagram-User-details), [hastags](#Instagram-Hashtag-details) and [Posts](#Instagram-Post-details)
+- It scrapes most of the data of [Instagram user](#Instagram-User-details), [hastags](#Instagram-Hashtag-details), [Posts](#Instagram-Post-details) and [Location](#Instagram-Location-details)
 - You can use this package [with login](#Sample-Usage) or [without login](#Use-Without-Login)
 - Download [Instagram post](#Plugins-for-Downloading-Posts) and [User profile picture](#Plugins-for-Downloading-Posts)
 - Have some [plugins](#Plugins) for Data analysis
@@ -231,6 +231,64 @@ Class `InstagramPost` scrape some of the information related to the particular p
 
 `InstagramPost.post_data` has more data other than defined as `Properties`
 
+### Instagram Location details
+
+Class `InstagramLocation` scrape some of the information and posts related to the given Location . It takes the location id and slug as the parameter. You can get the location id and slug from the URL of the Instagram Location or from the property of `InstagramPost.location.id` and `InstagramPost.location.slug`.
+
+```python
+>>> from instagramy import InstagramPost
+
+>>> session_id = "38566737751%3Ah7JpgePGAoLxJe%334"
+
+>>> post = InstagramPost('CLGkNCoJkcM', sessionid=session_id)
+
+>>> location_id, slug = post.location.id, post.location.slug
+
+>>> from Instagramy import InstagramLocation
+
+>>> location = InstagramLocation(location_id, slug, session_id)
+
+>>> location.latitude
+28.6139
+
+>>> location.longitude
+77.2089
+
+>>> location.address
+{'street_address': 'T2, Indira Gandhi International Airport', 'zip_code': '', 'city_name': 'New Delhi', 'region_name': '', 'country_code': 'IN', 'exact_city_match': False, 'exact_region_match': False, 'exact_country_match': False}
+```
+
+you can also get the location id and slug from the instagram url
+
+```url
+https://www.instagram.com/explore/locations/977862530/mrc-nagar
+https://www.instagram.com/explore/locations/<location_id>/<slug>
+```
+
+<details><summary>Show all Properties</summary>
+<p>
+
+- address
+- id
+- latitude
+- location_data
+- longitude
+- name
+- number_of_posts
+- phone
+- profile_pic_url
+- sessionid
+- slug
+- top_posts
+- url
+- viewer
+- website
+
+</p>
+</details>
+
+`InstagramLocation.location_data` has more data other than defined as `Properties`
+
 ### Plugins
 
 Instagramy has some plugins for ease
@@ -311,7 +369,7 @@ from version `4.3`, Added the new feature that is caching the required data. If 
 True
 ```
 
-It is opt of all classes `InstagramUser`, `InstagramHashTag` and `InstagramPost`.
+It is opt of all classes `InstagramUser`, `InstagramHashTag`, `InstagramPost` and `InstagramLocation`.
 
 Clear all Caches created by instagramy in current dir by
 
@@ -343,7 +401,7 @@ You can get some Sample scripts [Here](https://yogeshwaran01.herokuapp.com/post/
 - Check for session id frequently, It may be changed by Instagram
 - If code execution is never gets completed, check and change your session id and try again.
 - Don't provide the wrong session_id.
-- `InstagramUser.user_data`, `InstagramPost.post_data` and `InstagramHashtag.tag_data` which is python `dict` has more and more data other than defined as `Properties`.
+- `InstagramUser.user_data`, `InstagramPost.post_data`, `InstagramHashtag.tag_data` and `InstagramLocation.location_data` which is python `dict` has more and more data other than defined as `Properties`.
 - This Package does not scrap all the posts from an account, the limit of the post only 12 (For non-private account)
 - This Package not scrap all the posts of given hash-tag it only scrapes the top 60 - 72 posts.
 
