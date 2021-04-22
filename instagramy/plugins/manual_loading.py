@@ -51,7 +51,7 @@ class InstagramPost(PostParser):
     r"""
     Parse the data of Post from manual loading
 
-    :param data: user_data from `instagramy.InstagramPost.post_data`
+    :param data: post_data from `instagramy.InstagramPost.post_data`
     """
 
     def __init__(self, data: dict):
@@ -62,7 +62,7 @@ class InstagramHashTag(TagParser):
     r"""
     Parse the data of hashtag from manual loading
 
-    :param data: user_data from `instagramy.InstagramHashTag.tag_data`
+    :param data: tag_data from `instagramy.InstagramHashTag.tag_data`
     """
 
     def __init__(self, data: dict):
@@ -73,7 +73,7 @@ class InstargramLocation(LocationParser):
     r"""
     Parse the data of location from manual loading
 
-    :param data: user_data from `instagramy.InstagramHashTag.tag_data`
+    :param data: location_data from `instagramy.InstagramLocation.location_data`
     """
 
     def __init__(self, data: dict):
