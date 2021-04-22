@@ -82,7 +82,7 @@ class InstagramLocation(LocationParser):
         try:
             html = get(self.url, sessionid=self.sessionid)
         except HTTPError:
-            raise LocationNotFound(self.url.split("/")[-2] + "_" + self.url.split("/")[-4])
+            raise LocationNotFound(self.url.split("/")[-2] + "_" + self.url.split("/")[-1])
         parser = Parser()
         parser.feed(html)
         return parser.Data
