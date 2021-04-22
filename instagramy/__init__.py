@@ -3,14 +3,13 @@
     Instagramy
     ~~~~~~~~~~
 
-    A python package for Instagram. It scarpe the Instagram
-    contents.
+    A python package for Instagram. It scarpe the Instagram contents.
 
     :license: MIT License
 """
 
 __package__ = "instagramy"
-__description__ = "A python package for Instagram. It scarpe the Instagram contents."
+__description__ = "Python Package for Instagram User, Posts, Hashtags and Locations data"
 __url__ = "https://github.com/yogeshwaran01/instagramy"
 __version__ = "4.4"
 __author__ = "YOGESHWARAN R <yogeshin247@gmail.com>"
