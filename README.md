@@ -385,7 +385,7 @@ List of all Cache files created by instagramy in current dir
 ```python
 >>> from instagramy import list_caches
 
->>> list_caches() # list all caches of instagramy 
+>>> list_caches() # list all caches of instagramy
 ```
 
 ## Sample Scripts
