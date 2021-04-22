@@ -1,6 +1,7 @@
 <!-- headings -->
 
 <h1 align="center"> Instagramy </h1>
+<p align="center"> <img alt="Instagramy Logo" src="https://fun-web-projects.herokuapp.com/image/_q5ukAE4Vww"/> </p>
 
 <p align="center">Python Package for Instagram Without Any external dependencies</p>
 
@@ -23,25 +24,27 @@
     <img alt="Code style" src="https://img.shields.io/badge/codestyle-Black-blue"/>
     </a>
     <img alt="GitHub Repo size" src="https://img.shields.io/github/repo-size/yogeshwaran01/instagramy"/>
-    <img alt="Actions" src="https://github.com/yogeshwaran01/instagramy/workflows/Python%20package/badge.svg"/>
-    <img alt="Actions" src="https://github.com/yogeshwaran01/instagramy/workflows/Upload%20Python%20Package/badge.svg"/>
+    <a href="https://github.com/yogeshwaran01/instagramy/actions/workflows/python-publish.yml"><img alt="GitHub Actions" src="https://github.com/yogeshwaran01/instagramy/workflows/Upload%20Python%20Package/badge.svg"></a>
+    <a href="https://github.com/yogeshwaran01/instagramy/actions/workflows/python-package.yml"><img alt="GitHub Actions" src="https://github.com/yogeshwaran01/instagramy/workflows/Python%20package/badge.svg"></a>
+
 </p>
 
 </hr>
 
 <p align="center">
-Scrape Instagram Users Information, Posts Details, and Hashtags details. This Package scrapes the user's recent posts with some information like likes, comments, captions and etc. No external dependencies.
+Scrape Instagram Users Information, Posts data, Hashtags and Locations data. This Package scrapes the user's recent posts with some information like likes, comments, captions and etc. No external dependencies.
 </p>
 
 <!-- Features -->
 
 ## Features
 
-- It scrapes most of the data of the Instagram user, Hashtags and Posts
-- You can use this package with login or without login
-- Download Instagram post and User profile picture
-- Have some plugins for Data analysis
+- It scrapes most of the data of [Instagram user](#Instagram-User-details), [hastags](#Instagram-Hashtag-details), [Posts](#Instagram-Post-details) and [Location](#Instagram-Location-details)
+- You can use this package [with login](#Sample-Usage) or [without login](#Use-Without-Login)
+- Download [Instagram post](#Plugins-for-Downloading-Posts) and [User profile picture](#Plugins-for-Downloading-Posts)
+- Have some [plugins](#Plugins) for Data analysis
 - No External dependencies
+- Having [caching Function](#Caching-Feature)
 - Lightweight
 - Easy to Use
 
@@ -81,7 +84,7 @@ For Login into Instagram via instagramy session id is required. No username or p
 
 **Note:** Check for session id frequently, It may be changed by Instagram
 
-<img src="https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/sessionid.gif" alt="demo" width=100% height=100%>
+<img src="https://raw.githubusercontent.com/yogeshwaran01/instagramy/master/samples/sessionid.gif" width=100% height=100%>
 
 ### Instagram User details
 
@@ -102,6 +105,19 @@ True
 
 >>> user.user_data # More data about user as dict
 ```
+
+If you get the data of the user onetime, instagramy store the data as cache file for avoid the error. you can get the data from cache also. Don't provide the sessionid.
+
+```python
+>>> from instagramy import InstagramUser
+
+>>> user = InstagramUser('google', from_cache=True)
+
+>>> user.is_verified
+True
+```
+
+It is opt of all classes `InstagramUser`, `InstagramHashTag` and `InstagramPost`.
 
 <details><summary>Show all Properties</summary>
 <p>
@@ -206,6 +222,7 @@ Class `InstagramPost` scrape some of the information related to the particular p
 - number_of_comments
 - number_of_likes
 - post_source
+- text
 - type_of_post
 - upload_time
 
@@ -213,6 +230,64 @@ Class `InstagramPost` scrape some of the information related to the particular p
 </details>
 
 `InstagramPost.post_data` has more data other than defined as `Properties`
+
+### Instagram Location details
+
+Class `InstagramLocation` scrape some of the information and posts related to the given Location . It takes the location id and slug as the parameter. You can get the location id and slug from the URL of the Instagram Location or from the property of `InstagramPost.location.id` and `InstagramPost.location.slug`.
+
+```python
+>>> from instagramy import InstagramPost
+
+>>> session_id = "38566737751%3Ah7JpgePGAoLxJe%334"
+
+>>> post = InstagramPost('CLGkNCoJkcM', sessionid=session_id)
+
+>>> location_id, slug = post.location.id, post.location.slug
+
+>>> from Instagramy import InstagramLocation
+
+>>> location = InstagramLocation(location_id, slug, session_id)
+
+>>> location.latitude
+28.6139
+
+>>> location.longitude
+77.2089
+
+>>> location.address
+{'street_address': 'T2, Indira Gandhi International Airport', 'zip_code': '', 'city_name': 'New Delhi', 'region_name': '', 'country_code': 'IN', 'exact_city_match': False, 'exact_region_match': False, 'exact_country_match': False}
+```
+
+you can also get the location id and slug from the instagram url
+
+```url
+https://www.instagram.com/explore/locations/977862530/mrc-nagar
+https://www.instagram.com/explore/locations/<location_id>/<slug>
+```
+
+<details><summary>Show all Properties</summary>
+<p>
+
+- address
+- id
+- latitude
+- location_data
+- longitude
+- name
+- number_of_posts
+- phone
+- profile_pic_url
+- sessionid
+- slug
+- top_posts
+- url
+- viewer
+- website
+
+</p>
+</details>
+
+`InstagramLocation.location_data` has more data other than defined as `Properties`
 
 ### Plugins
 
@@ -281,129 +356,41 @@ You can use this package without login. Sessionid is not required but it may ris
 >>> tag.tag_data
 ```
 
+### Caching Feature
+
+from version `4.3`, Added the new feature that is caching the required data. If you get the data of the user onetime, instagramy store the data as cache json file for avoid the error. you can get the data from cache also. Don't need to provide the sessionid. Instead of sessionid add the optional parameter `from_cache=True`.
+
+```python
+>>> from instagramy import InstagramUser
+
+>>> user = InstagramUser('google', from_cache=True)
+
+>>> user.is_verified
+True
+```
+
+It is opt of all classes `InstagramUser`, `InstagramHashTag`, `InstagramPost` and `InstagramLocation`.
+
+Clear all Caches created by instagramy in current dir by
+
+```python
+>>> from instagramy.core.cache import clear_caches
+
+>>> clear_caches() # clear all caches of instagramy
+
+```
+
+List of all Cache files created by instagramy in current dir
+
+```python
+>>> from instagramy import list_caches
+
+>>> list_caches() # list all caches of instagramy
+```
+
 ## Sample Scripts
 
-### 1) All Instagram data into Json File
-
-This Script dump all data of the Instagram User, Tag and Post data in Json file
-
-```python
-import json
-from instagramy import *
-
-user = InstagramUser('github', sessionid="your_session%here")
-tag = InstagramTag('python', sessionid="check_your_session_id_often")
-post = InstagramPost("post_id_from_post_url", sessionid="os.getenv('SID')")
-
-user_data = user.user_data
-tag_data = tag.tag_data
-post_data = post.post_data
-
-# Dumping all data into respective files as Json
-
-with open('github_user.json', 'w') as file:
-    json.dump(user_data, file, indent=4)
-
-with open('python_tag.json', 'w') as file:
-    json.dump(user_data, file, indent=4)
-
-with open('some_post.json', 'w') as file:
-    json.dump(user_data, file, indent=4)
-
-```
-
-### 2) Visualization of Instagram User data
-
-This Script analyze and visualize the Instagram users popularity.
-
-Before running the script lets create the text file `accounts.txt` python required Instagram Users
-
-```text
-im_surya_jass__
-sarv._.sa
-_velu_shree_
-__perumal__
-...
-```
-
-Store this source as `instagram_viz.py`
-
-```python
-import sys
-
-import matplotlib.pyplot as plt
-import numpy as np
-from instagramy import InstagramUser
-
-try:
-    filename = sys.argv[1]
-except (IndexError, KeyError):
-    print("List of username as textfile in arguement")
-
-usernames = []
-file = open(filename, "r")
-for line in file:
-    if line != "\n":
-        usernames.append(str(line).strip())
-followers = []
-following = []
-posts = []
-
-for username in usernames:
-    user = InstagramUser(username)
-    followers.append(user.number_of_followers)
-    following.append(user.number_of_followings)
-    posts.append(user.number_of_posts)
-
-x = np.arange(len(usernames))  # the label locations
-width = 0.25  # the width of the bars
-
-fig, ax = plt.subplots()
-rects1 = ax.bar(x + 0.2, followers, width, label="Followers")
-rects2 = ax.bar(x, following, width, label="Following")
-rects3 = ax.bar(x - 0.2, posts, width, label="Posts")
-
-# Add some text for labels, title and custom x-axis tick labels, etc.
-ax.set_ylabel("Popularity")
-ax.yaxis.set_visible(False)
-ax.set_title("Username")
-ax.set_xticks(x)
-ax.set_xticklabels(usernames)
-ax.legend()
-
-
-def autolabel(rects):
-    """Attach a text label above each bar in *rects*, displaying its height."""
-    for rect in rects:
-        height = rect.get_height()
-        ax.annotate(
-            "{}".format(height),
-            xy=(rect.get_x() + rect.get_width() / 2, height),
-            xytext=(0, 3),  # 3 points vertical offset
-            textcoords="offset points",
-            ha="center",
-            va="bottom",
-        )
-
-
-autolabel(rects1)
-autolabel(rects2)
-autolabel(rects3)
-fig.tight_layout()
-plt.show()
-```
-
-Lets run the script,
-
-```bash
-python3 instagram_viz.py accounts.txt
-```
-
-And here this the output
-
-<img src="https://fun-web-projects.herokuapp.com/image/X-m5IfDbsys" alt="demo" width=100% height=100%>
-
-You can do more stuff with this Package
+You can get some Sample scripts [Here](https://yogeshwaran01.herokuapp.com/post/Instagramy-Python-Package-for-Instagram)
 
 <!-- Conclution -->
 
@@ -414,7 +401,7 @@ You can do more stuff with this Package
 - Check for session id frequently, It may be changed by Instagram
 - If code execution is never gets completed, check and change your session id and try again.
 - Don't provide the wrong session_id.
-- `InstagramUser.user_data`, `InstagramPost.post_data` and `InstagramHashtag.tag_data` which is python `dict` has more and more data other than defined as `Properties`.
+- `InstagramUser.user_data`, `InstagramPost.post_data`, `InstagramHashtag.tag_data` and `InstagramLocation.location_data` which is python `dict` has more and more data other than defined as `Properties`.
 - This Package does not scrap all the posts from an account, the limit of the post only 12 (For non-private account)
 - This Package not scrap all the posts of given hash-tag it only scrapes the top 60 - 72 posts.
 
