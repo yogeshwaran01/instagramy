@@ -392,8 +392,6 @@ List of all Cache files created by instagramy in current dir
 
 You can get some Sample scripts [Here](https://yogeshwaran01.herokuapp.com/post/Instagramy-Python-Package-for-Instagram)
 
-<!-- Conclution -->
-
 ## ✏️ Important Notes
 
 - You can use this package without sessionid (Login). But it may `RedirectionError` after four to five requests.
@@ -404,6 +402,8 @@ You can get some Sample scripts [Here](https://yogeshwaran01.herokuapp.com/post/
 - `InstagramUser.user_data`, `InstagramPost.post_data`, `InstagramHashtag.tag_data` and `InstagramLocation.location_data` which is python `dict` has more and more data other than defined as `Properties`.
 - This Package does not scrap all the posts from an account, the limit of the post only 12 (For non-private account)
 - This Package not scrap all the posts of given hash-tag it only scrapes the top 60 - 72 posts.
+
+<!-- Conclution -->
 
 ## License
 
