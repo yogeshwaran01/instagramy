@@ -5,11 +5,11 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="instagramy",
-    version="4.3",
+    version="4.4",
     license='MIT',
     author="Yogeshwaran R",
     author_email="yogeshin247@gmail.com",
-    description="Get Instagram user and hashtag information and posts details without any third-party libraries",
+    description="Python Package for Instagram User, Posts, Hashtags and Locations data",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/yogeshwaran01/instagramy/",

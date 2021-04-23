@@ -31,6 +31,13 @@ class PostIdNotFound(BaseException):
         return f"InstargramPost('{self.name}')"
 
 
+class LocationNotFound(BaseException):
+    """ Raise if Location not found in Instagram """
+
+    def __str__(self):
+        return f"InstargramLocation('{self.name}')"
+
+
 class RedirectionError(Exception):
     """ Raise if Instagram Redirects it to Login Page """
 

@@ -9,6 +9,56 @@ from .exceptions import RedirectionError
 from .requests import get
 
 
+def _nodes_classfier(nodes: list):
+    post_lists = []
+    for node in nodes:
+        data = {}
+        try:
+            data["likes"] = node["node"]["edge_liked_by"]["count"]
+        except (KeyError, TypeError):
+            data["likes"] = None
+        try:
+            data["comments"] = node["node"]["edge_media_to_comment"]["count"]
+        except (KeyError, TypeError):
+            data["comments"] = None
+        try:
+            data["is_video"] = node["node"]["is_video"]
+        except (KeyError, TypeError):
+            data["is_video"] = None
+        try:
+            data["upload_time"] = datetime.fromtimestamp(
+                node["node"]["taken_at_timestamp"]
+            )
+        except (KeyError, TypeError):
+            data["upload_time"] = None
+        try:
+            data["caption"] = node["node"]["accessibility_caption"]
+        except (KeyError, TypeError):
+            data["caption"] = None
+        try:
+            data["shortcode"] = node["node"]["shortcode"]
+        except (KeyError, TypeError):
+            data["shortcode"] = None
+        try:
+            data["dimensions"] = node['node']["dimensions"]
+        except (KeyError, IndexError):
+            data["dimensions"] = None
+        try:
+            data[
+                "post_url"
+            ] = f'https://www.instagram.com/p/{node["node"]["shortcode"]}'
+        except (KeyError, TypeError):
+            data["post_url"] = None
+        try:
+            data["display_url"] = node["node"]["display_url"]
+        except (KeyError, TypeError):
+            data["display_url"] = None
+        nt = namedtuple("Post", data.keys())(*data.values())
+        post_lists.append(nt)
+
+    return post_lists
+
+
 class Parser(HTMLParser):
 
     """
@@ -349,6 +399,19 @@ class PostParser:
         except (KeyError, IndexError):
             return None
 
+    @property
+    def location(self) -> str:
+        location_data = self.post_data["location"]
+        Location = namedtuple("Location", ["Address", "id", "slug", "name"])
+        if location_data:
+            return Location(
+                location_data["address_json"],
+                location_data["id"],
+                location_data["slug"],
+                location_data["name"],
+            )
+        return None
+
 
 class TagParser:
     """ Parse the required data of tag store as property"""
@@ -373,50 +436,8 @@ class TagParser:
         """
         Top post data (<70) in the given Hashtag
         """
-
-        post_lists = []
         nodes = self.tag_data["edge_hashtag_to_media"]["edges"]
-        for node in nodes:
-            data = {}
-            try:
-                data["likes"] = node["node"]["edge_liked_by"]["count"]
-            except (KeyError, TypeError):
-                data["likes"] = None
-            try:
-                data["comments"] = node["node"]["edge_media_to_comment"]["count"]
-            except (KeyError, TypeError):
-                data["comments"] = None
-            try:
-                data["is_video"] = node["node"]["is_video"]
-            except (KeyError, TypeError):
-                data["is_video"] = None
-            try:
-                data["upload_time"] = datetime.fromtimestamp(
-                    node["node"]["taken_at_timestamp"]
-                )
-            except (KeyError, TypeError):
-                data["upload_time"] = None
-            try:
-                data["caption"] = node["node"]["accessibility_caption"]
-            except (KeyError, TypeError):
-                data["caption"] = None
-            try:
-                data["shortcode"] = node["node"]["shortcode"]
-            except (KeyError, TypeError):
-                data["shortcode"] = None
-            try:
-                data[
-                    "post_url"
-                ] = f'https://www.instagram.com/p/{node["node"]["shortcode"]}'
-            except (KeyError, TypeError):
-                data["post_url"] = None
-            try:
-                data["display_url"] = node["node"]["display_url"]
-            except (KeyError, TypeError):
-                data["display_url"] = None
-            nt = namedtuple("Post", data.keys())(*data.values())
-            post_lists.append(nt)
-        return post_lists
+        return _nodes_classfier(nodes)
 
     @property
     def posts_display_urls(self) -> list:
@@ -424,3 +445,67 @@ class TagParser:
         Top post (<70) in the given Hashtag
         """
         return [i["display_url"] for i in self.top_posts]
+
+
+class LocationParser:
+    """ Parse the required data of location store as property"""
+
+    @property
+    def id(self) -> str:
+        """ Location id of the location """
+        return self.location_data["id"]
+
+    @property
+    def name(self) -> str:
+        """ Name of the location """
+        return self.location_data["name"]
+
+    @property
+    def latitude(self) -> int:
+        """ Latitude of the location """
+        return self.location_data["lat"]
+
+    @property
+    def longitude(self) -> int:
+        """ Longitude of the location """
+        return self.location_data["lng"]
+
+    @property
+    def slug(self) -> str:
+        """ Slug of the location """
+        return self.location_data["slug"]
+
+    @property
+    def website(self) -> str:
+        """ Website of the location """
+        return self.location_data["website"]
+
+    @property
+    def phone(self) -> str:
+        """ Phone Number of the location """
+        return self.location_data["phone"]
+
+    @property
+    def address(self) -> dict:
+        """ Address of the location """
+        return json.loads(self.location_data["address_json"])
+
+    @property
+    def profile_pic_url(self) -> dict:
+        """ Profile Picture of the location """
+        return self.location_data["profile_pic_url"]
+
+    @property
+    def number_of_posts(self) -> int:
+        """ Number of post in the location """
+        return self.location_data["edge_location_to_media"]["count"]
+
+    @property
+    def top_posts(self) -> int:
+        """
+        Top post data (<70) in the given Location
+        """
+        nodes_1 = self.location_data["edge_location_to_media"]["edges"]
+        nodes_2 = self.location_data["edge_location_to_top_posts"]["edges"]
+
+        return _nodes_classfier(nodes_1) + _nodes_classfier(nodes_2)
