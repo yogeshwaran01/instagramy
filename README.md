@@ -401,7 +401,7 @@ You can get some Sample scripts [Here](https://yogeshwaran01.herokuapp.com/post/
 - Don't provide the wrong session_id.
 - `InstagramUser.user_data`, `InstagramPost.post_data`, `InstagramHashtag.tag_data` and `InstagramLocation.location_data` which is python `dict` has more and more data other than defined as `Properties`.
 - This Package does not scrap all the posts from an account, the limit of the post only 12 (For non-private account)
-- This Package not scrap all the posts of given hash-tag it only scrapes the top 60 - 72 posts.
+- This Package not scrap all the posts of given hash-tag and location it only scrapes the top 60 - 72 posts.
 
 <!-- Conclution -->
 
