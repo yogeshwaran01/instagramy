@@ -394,6 +394,7 @@ You can get some Sample scripts [Here](https://yogeshwaran01.herokuapp.com/post/
 
 ## ✏️ Important Notes
 
+- Don't send huge request to Instagram with sessionid, Instagram may ban you.
 - You can use this package without sessionid (Login). But it may `RedirectionError` after four to five requests.
 - class `Viewer` provide the data about currently logged in user.
 - Check for session id frequently, It may be changed by Instagram
@@ -404,6 +405,10 @@ You can get some Sample scripts [Here](https://yogeshwaran01.herokuapp.com/post/
 - This Package not scrap all the posts of given hash-tag and location it only scrapes the top 60 - 72 posts.
 
 <!-- Conclution -->
+
+## Disclaimer
+
+If you send the huge request to the Instagram with session id Instagram may ban you. I am not responsible for any misuse or damage caused by this program.
 
 ## License
 
