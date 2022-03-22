@@ -271,7 +271,7 @@ class UserParser:
         Top 12 posts picture url of the given user
         """
 
-        return [i["display_url"] for i in self.posts]
+        return [i.display_url for i in self.posts]
 
     @property
     def is_joined_recently(self) -> bool:
