@@ -59,6 +59,12 @@ pip install instagramy
 
 ```
 
+### Dev Version
+
+```bash
+pip install git+https://github.com/yogeshwaran01/instagramy.git
+```
+
 ### Upgrade
 
 ```bash
