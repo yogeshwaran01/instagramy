@@ -395,7 +395,12 @@ List of all Cache files created by instagramy in current dir
 
 ## Sample Scripts
 
-You can get some Sample scripts [Here](https://yogeshwaran01.herokuapp.com/post/Instagramy-Python-Package-for-Instagram)
+### Getting Email address and phone number
+
+```python
+user = InstagramUser('username')
+email, phone_number = user.user_data['business_email'], user.user_data['business_phone_number']
+```
 
 ## ✏️ Important Notes
 

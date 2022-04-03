@@ -11,7 +11,7 @@
 __package__ = "instagramy"
 __description__ = "Python Package for Instagram User, Posts, Hashtags and Locations data"
 __url__ = "https://github.com/yogeshwaran01/instagramy"
-__version__ = "4.4"
+__version__ = "4.5"
 __author__ = "YOGESHWARAN R <yogeshin247@gmail.com>"
 __license__ = "MIT License"
 __copyright__ = "Copyright 2021 Yogeshwaran R"
