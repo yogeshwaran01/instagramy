@@ -309,7 +309,7 @@ Instagramy has some plugins for ease
         "delhicapitals", "sunrisershyd",
         "kxipofficial"]
 >>> data = analyze_users_popularity(teams, session_id)
->>> pd.Dataframe(data)
+>>> pd.DataFrame(data)
 
                    Usernames  Followers  Following  Posts
 0                 chennaiipl    6189292        194   5646
